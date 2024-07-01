@@ -59,4 +59,23 @@ $(function() {
             }
         });
     });
+
+    $('#btn-delete-img-profile').on('click', function() {
+        swalQuestion(null, 'Delete image profile?').then((result) => {
+            if (result.isConfirmed) {
+                $.post({
+                    type: 'DELETE',
+                    url: '/profile/delete-image',
+                    beforeSend: swalLoading(),
+                    success: function(response) {
+                        $('#img-profile-preview').attr('src', response.src);
+                        swalSuccess(response.message);
+                    },
+                    error: function(error) {
+                        swalErrorAjax(error);
+                    }
+                });
+            }
+        })
+    })
 });

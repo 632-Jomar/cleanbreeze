@@ -12,6 +12,13 @@ class UserController extends Controller
 {
     use ImageTrait;
 
+    protected $folderName = 'img-profile';
+
+    public function __construct()
+    {
+        $this->middleware('userType:1,2');
+    }
+
     public function index() {
         return view('users.index');
     }
@@ -94,10 +101,30 @@ class UserController extends Controller
         try {
             $filename = $this->filename(request('image_profile'), 'PRF-');
 
-            $this->updateImage('img-profile', auth()->user()->image_filename, $filename, request('image_profile'));
+            $this->updateImage($this->folderName, auth()->user()->image_filename, $filename, request('image_profile'));
 
             auth()->user()->update([
                 'image_filename' => $filename
+            ]);
+
+            return response([
+                'message' => 'Image has been uploaded successfully',
+                'src'     => auth()->user()->image_src
+            ]);
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function removeImage() {
+        try {
+            abort_unless(auth()->user()->image_filename, 404, 'No image found');
+
+            $this->deleteImage($this->folderName, auth()->user()->image_filename);
+
+            auth()->user()->update([
+                'image_filename' => null
             ]);
 
             return response([

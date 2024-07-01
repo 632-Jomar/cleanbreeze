@@ -26,6 +26,10 @@
                             <button class="btn btn-primary mb-3" data-target="#upload_modal" data-toggle="modal">
                                 <i class="fa fa-camera"></i> Upload Photo
                             </button>
+
+                            <button id="btn-delete-img-profile" class="btn btn-danger mb-3">
+                                <i class="fa fa-trash"></i> Delete Photo
+                            </button>
                         </div>
 
                         <div class="col-md-8">

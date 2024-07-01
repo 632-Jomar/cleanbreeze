@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('profile/update-info', 'UserController@updateInfo');
     Route::post('profile/update-password', 'UserController@updatePassword');
     Route::post('profile/upload-image', 'UserController@uploadImage');
+    Route::delete('profile/delete-image', 'UserController@removeImage');
 
     /** Quotation (others) */
     Route::post('quotations/upload-image', 'QuotationController@uploadQuotationImage');
