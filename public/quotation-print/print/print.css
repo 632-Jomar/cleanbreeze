@@ -1,0 +1,139 @@
+@media screen {
+    body{
+        background: white !important;
+    }
+    .img{
+        width: 130% !important;
+    }
+    .title-print{
+        width: 30% !important;
+        vertical-align: middle;
+        padding: 20px!important;
+    }
+    .hide{
+        visibility: hidden !important;
+    }
+    .image-print{
+        width: 30% !important;
+        vertical-align: middle;
+        padding: 20px 20px 20px 20px !important;
+    }
+    .total_amount{
+        width: 25% !important;
+    }
+    .table_data{
+        width: 50% !important;
+        border-top:none !important;
+    }
+    .dont_print{
+        position: fixed;
+        height: 100%;
+    }
+    label, td {
+        font-size: 12px !important;
+    }
+    .print{
+        visibility: visible !important;
+        margin: auto !important;
+        width: 11in !important;
+        /*max-height: 8in !important;*/
+        padding: 20px;
+        /*border: solid 1px;*/
+        box-shadow: 1px 1px 5px 1px grey;
+    }
+    .order{
+        background: #449d44 !important;
+        color:white !important;
+        padding: 10px !important;
+        font-size: 14px !important;
+    }
+    .head{
+        background: #449d44 !important;
+        font-size: 12px !important;
+    }
+    .text-center{
+        padding: 10px !important;
+        color: white !important;
+    }
+    .panel-title{
+        padding-top:10px !important;
+    }
+    .title{
+        border-top: none !important;
+    }
+    .text_right{
+        text-align: right !important; 
+    }
+}
+
+@media print {
+    body{
+        background: white !important;
+    }
+    #sidebar{
+        display: none !important;
+    }
+    .this_print{
+        display: none;
+    }
+    .table_data{
+        width: 50%;
+        border-top:none !important;
+    }
+    .img{
+        width: 100% !important;
+    }
+    .hide{
+        visibility: hidden !important;
+    }
+    .total_amount{
+        width: 25% !important;
+    }
+    .title-print{
+        width: 30% !important;
+        vertical-align: middle;padding: 20px!important;
+    }
+    .image-print{
+        width: 30% !important;
+        vertical-align: middle;
+        padding: 20px 20px 20px 20px !important;
+    }
+    .dont_print{
+        display: none !important;
+    }
+    label, td {
+        font-size: 12px !important;
+    }
+    .text_right{
+        text-align: right !important; 
+    }
+    .print{
+        visibility: visible !important;
+        margin: auto !important;
+        width: 11in !important;
+        max-height: 8in !important;
+        padding: 10px;
+        /*border: solid 1px;*/
+        /*box-shadow: 1px 1px 5px 1px grey;*/
+    }
+    .order{
+        background: #449d44 !important;
+        color:white !important;
+        padding: 10px !important;
+        font-size: 14px !important;
+    }
+    .head{
+        background: #449d44 !important;
+        font-size: 12px !important;
+    }
+    .text-center{
+        padding: 10px !important;
+        color: white !important;
+    }
+    .panel-title{
+        padding-top:10px !important;
+    }
+    .title{
+        border-top: none !important;
+    }
+}

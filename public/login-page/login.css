@@ -1,0 +1,29 @@
+body {
+    background: -webkit-linear-gradient(left, #6EC1E4, #6EC1E4);
+}
+
+.login-company-logo {
+    width: 250px;
+    animation: mover 1s infinite alternate;
+}
+
+.register-div {
+    border-top-left-radius: 10% 50%;
+    border-bottom-left-radius: 10% 50%;
+}
+
+@media (max-width: 991px) {
+    .register-div {
+        border-radius: 0;
+    }
+}
+
+@keyframes mover {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-20px);
+    }
+}

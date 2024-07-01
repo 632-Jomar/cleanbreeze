@@ -1,0 +1,53 @@
+.x-page {
+    background: white;
+    display: block;
+    margin: 0 auto 10px;
+    box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+    padding: 10mm;
+    /* font-size: 12px; */
+}
+
+.x-page[size="letter"] {  
+    width: 215.9mm;
+    height: 279.4mm;
+}
+
+/* .x-page[size="A4"][layout="landscape"] {
+    215.9 x 279.4
+    width: 297mm;
+    height: 209mm;
+} */
+
+.bg-black, td.bg-black {
+    background-color: black!important;
+}
+
+.text-white {
+    color: white;
+}
+
+html, body {
+    font-size: 12px;
+}
+
+@media print {
+    @page {
+        size: letter;
+        margin: 0;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .x-page {
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+    }
+
+    .x-page:last-child {
+        page-break-after: avoid;
+    }
+}

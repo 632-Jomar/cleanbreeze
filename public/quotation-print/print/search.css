@@ -1,0 +1,62 @@
+.form-group{
+  margin: 20px;
+}
+#exampleInputEmail1{
+  resize: none;
+}
+.overflow{
+  max-height: 390px;
+  height: 390px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.tb-head{
+  padding: 30px !important;
+}
+.tb-head label{
+  color:white;
+}
+.img-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+}
+.so{
+  margin: 10px 0;
+}
+#search{
+  margin: 10px 0;
+  border-radius: 0px 5px 5px 0px;
+  border-color: #449d44 !important;
+}
+#filter{
+  margin: 10px 0;
+  border-radius: 0px 5px 5px 0px;
+  border-color: #449d44 !important;
+}
+#add_forwarder_btn{
+  background-color: #449d44;
+  border: none;
+}
+.search-icon{
+  border-radius: 5px 0px 0px 5px;
+  background-color: #449d44;
+  border: none;
+  margin: 10px 0;
+  cursor: default;
+}
+.search-icon:hover{
+  background-color: #449d44 !important;
+}
+.title{
+  padding: 20px 30px 20px 30px;
+  background-color: #449d44 !important;
+  color: white;
+  border-radius: 0 20px 20px 0;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
