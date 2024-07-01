@@ -6,7 +6,7 @@
     <div style="width: 60%">
         <img width="100%" src="{{ embedImage('assets/logos/logophil.png', $message) }}" style="margin-bottom: 30px; background: -webkit-linear-gradient(left, #6EC1E4, #6EC1E4); width: 350px">
 
-        <p align="left">
+        <p>
             Good day! {{ config('app.name') }} has create your login credentials:
 
             <table style="margin: 20px 0">
