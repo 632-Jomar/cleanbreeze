@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class ActivityLogController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('userType:1,2');
+    }
+
     public function index() {
         $activityLogs = ActivityLog::latest()->paginate(10);
 
