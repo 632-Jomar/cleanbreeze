@@ -53,10 +53,10 @@ class AccountController extends Controller
                 'description' => "User account created by admin (User ID: {$user->id})"
             ]);
 
-            // Mail::send('accounts.verify', compact('user', 'password'), function ($message) use ($user) {
-            //     $message->to($user->email);
-            //     $message->subject('Login Credentials');
-            // });
+            Mail::send('accounts.verify', compact('user', 'password'), function ($message) use ($user) {
+                $message->to($user->email);
+                $message->subject('Login Credentials');
+            });
 
             $users = $this->getAllUsers();
             DB::commit();
