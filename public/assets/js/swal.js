@@ -25,6 +25,14 @@ function swalError(text, title) {
     });
 }
 
+function swalQuestion(text, title) {
+    return Swal.fire({
+        title: title || 'Proceed',
+        html: text || `Do you want to continue?`,
+        showCancelButton: true
+    });
+}
+
 function swalErrorAjax(response, title) {
     let responseJSON = response.responseJSON;
     let message      = '';
