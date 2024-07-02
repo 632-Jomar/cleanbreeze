@@ -38,3 +38,8 @@ Route::middleware(['auth'])->group(function () {
         'activity-logs' => 'ActivityLogController'
     ]);
 });
+
+Route::get('sample', function() {
+    $passwordReset = \App\PasswordReset::first();
+    return view('email.users.reset-password', compact('passwordReset'));
+});
