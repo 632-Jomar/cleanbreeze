@@ -1,47 +1,79 @@
-{{-- @extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cleanbreeze</title>
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('login-page/login.css') }}">
+</head>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+<body class="hold-transition sidebar-mini">
+    <div class="container-fluid">
+        <div class="row">
+            <div style="width: 80px" class="bg-white vh-100 d-none d-xl-inline-flex">
+                <div class="col text-center pt-3">
+                    <a href="http://philgeogreen.com/" title="Geogreen Website" class="d-block" style="font-size: 40px">
+                        <i class="fa fa-globe text-info"></i>
+                    </a>
 
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
+                    <a href="https://www.facebook.com/Philippine-GeoGreen-Inc-97741785266/" title="Facebook Page" class="d-block" style="font-size: 40px">
+                        <i class="fab fa-facebook text-info"></i>
+                    </a>
+                </div>
+            </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+            <div class="vh-100 flex-fill">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="row vh-100 align-items-center text-light">
+                                <div class="w-100">
+                                    <div class="col-8 col-md-7 text-center mx-auto">
+                                        <img src="/assets/logos/logophil.png" alt="" class="login-company-logo img-fluid" draggable="false">
+    
+                                        <form action="{{ route('password.email') }}" method="POST" id="form-forget">
+                                            @csrf
+    
+                                            <div class="mb-2">
+                                                <label class="font-weight-normal">Email:</label>
+                                                <input type="email" name="email" class="form-control" placeholder="Email Address *" value="{{ old('email') }}" required>
+                                            </div>
+        
+                                            <div class="text-center mt-4">
+                                                <button type="submit" id="btn-login" class="btn btn-light rounded-pill">
+                                                    Send Reset Password Link
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+    
+                                    <div class="text-center" id="login-error-message">
+                                        @if (session('status'))
+                                            <p class="mt-3 text-success">{{ session('status') }}</p>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
+                        <div class="col-lg-7 bg-white register-div">
+                            <div class="row vh-100 justify-content-center align-items-center">
+                                
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-@endsection --}}
+
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/dist/js/adminlte.min.js"></script>
+    <script src="/login-page/login.js"></script>
+</body>
+</html>
