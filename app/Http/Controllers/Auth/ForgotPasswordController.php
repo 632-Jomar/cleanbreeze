@@ -31,6 +31,7 @@ class ForgotPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        abort(403, 'Forget password is temporary unavailable');
     }
 
     public function sendResetLinkEmail(Request $request)
