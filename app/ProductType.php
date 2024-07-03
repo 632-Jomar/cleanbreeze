@@ -12,8 +12,8 @@ class ProductType extends Model
         return $this->belongsTo(ProductName::class, 'product_name_id');
     }
 
-    public function productDiameters() {
-        return $this->hasMany(ProductDiameter::class);
+    public function products() {
+        return $this->hasMany(Product::class);
     }
 
     public function productVoltages() {

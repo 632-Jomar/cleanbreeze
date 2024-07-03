@@ -8,7 +8,7 @@ class Product extends Model
 {
     protected $guarded = [];
 
-    public function productDiameter() {
-        return $this->belongsTo(ProductDiameter::class, 'product_diameter_id');
+    public function productType() {
+        return $this->belongsTo(ProductType::class, 'product_type_id');
     }
 }

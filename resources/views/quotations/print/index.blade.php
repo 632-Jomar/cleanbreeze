@@ -40,8 +40,7 @@
                     <div id="content" class="not_print" style="width: 100%;">
                         <div class="content print">
                             <div style="margin: auto;">
-                                <form name="add_item" id="add_item" class="form-inline">
-                                    <input type="hidden" name="_token" value="2bdye43SKru0Lqe5KA0wcptGB4t18A1ccpuUs9Mm">
+                                <form class="form-inline">
                                     <div>
                                         <div class="col-xs-16">
                                             <div>
@@ -59,7 +58,7 @@
                                                     <tbody>
                                                         <tr>
                                                             <td class="image-print">
-                                                                <img src="/quotation-print/printlogo.png" style="width:400px;">
+                                                                <img src="{{ asset('assets/logos/logophil.png') }}" style="margin-bottom: 20px; width:350px; background: -webkit-linear-gradient(left, #6EC1E4, #6EC1E4);">
                                                                 <center>
                                                                     <table>
                                                                         <tbody>
@@ -134,20 +133,20 @@
                                                                 <label style="font-size: 14px !important;">Client Details:</label>
                                                             </td>
                                                             <td class="order" colspan="4" style="background-color: black  !important;">
-                                                                <label style="font-size: 14px !important;">Date: 2024-06-27</label>
+                                                                <label style="font-size: 14px !important;">Date: {{ $quotation->created_at->format('Y-m-d') }}</label>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="1"><label style="font-size: 14px !important;">Name:</label></td>
-                                                            <td colspan="3" style="font-size: 14px !important;">Kuroneko Nya~</td>
+                                                            <td colspan="3" style="font-size: 14px !important;">{{ $quotation->name }}</td>
                                                             <td colspan="1"><label style="font-size: 14px !important;">Contact #:</label></td>
-                                                            <td colspan="3" style="font-size: 14px !important;">09458858455</td>
+                                                            <td colspan="3" style="font-size: 14px !important;">{{ $quotation->contact }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="1"><label style="font-size: 14px !important;">Email:</label></td>
-                                                            <td colspan="3" style="font-size: 14px !important;">jalarcon.632apps@gmail.com</td>
+                                                            <td colspan="3" style="font-size: 14px !important;">{{ $quotation->email }}</td>
                                                             <td colspan="1"><label style="font-size: 14px !important;">Address:</label></td>
-                                                            <td colspan="3" style="font-size: 14px !important;">New Address</td>
+                                                            <td colspan="3" style="font-size: 14px !important;">{{ $quotation->address }}</td>
                                                         </tr>
                                                         <tr class="title">
                                                             <td class="order" colspan="4" style="background-color: black  !important;">
@@ -159,7 +158,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td colspan="1"><label style="font-size: 14px !important;">Sales Person:</label></td>
-                                                            <td colspan="5" style="font-size: 14px !important;">Aeron(sales Dummy)</td>
+                                                            <td colspan="5" style="font-size: 14px !important;">{{ $quotation->createdBy->name }}</td>
                                                         </tr>
                                                         <tr>
                                                             <td colspan="1"><label style="font-size: 14px !important;">Payment Terms:</label></td>
@@ -191,172 +190,89 @@
                                                                             <th class="text-center" style="color: white;font-size: 14px !important;">QTY</th>
                                                                             <th class="text-center" style="color: white;font-size: 14px !important;">TOTAL PRICE</th>
                                                                         </tr>
-                                                                        <tr>
-                                                                            <td style="vertical-align: middle;">
-                                                                                <center style="font-size: 14px !important;">
-                                                                                    BAF
-                                                                                </center>
-                                                                            </td>
-                                                                            <td style="vertical-align: middle;">
-                                                                                <center style="font-size: 14px !important;">
-                                                                                    Haiku
-                                                                                </center>
-                                                                            </td>
-                                                                            <td colspan="2">
-                                                                                <table class="table table-bordered">
-                                                                                    <tbody>
-                                                                                        <tr style="background-color: #8c8c8c;">
-                                                                                            <td>
-                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Type</label></center>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Diameter</label></center>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Color</label></center>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Warranty</label></center>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td style="font-size: 14px !important;">L- Series (Indoor)</td>
-                                                                                            <td style="font-size: 14px !important;">52" - Universal - Black/ White</td>
-                                                                                            <td style="font-size: 14px !important;">
-                                                                                                Black
-                                                                                            </td>
-                                                                                            <td style="font-size: 14px !important;" rowspan="3">
-                                                                                                1 Year
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr style="background-color: #8c8c8c;">
-                                                                                            <td>
-                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Power</label></center>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Extension</label></center>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">LED</label></center>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td style="font-size: 14px !important;">
-                                                                                                N/A
-                                                                                            </td>
-                                                                                            <td style="font-size: 14px !important;">
-                                                                                                N/A
-                                                                                            </td>
-                                                                                            <td style="font-size: 14px !important;">
-                                                                                                N/A
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </td>
-                                                                            <td style="vertical-align: middle;font-size: 14px !important;">
-                                                                                <center>
-                                                                                    PHP &nbsp; 50,000.00
-                                                                                </center>
-                                                                            </td>
-                                                                            <td style="vertical-align: middle;font-size: 14px !important;">
-                                                                                <center>
-                                                                                    1
-                                                                                </center>
-                                                                            </td>
-                                                                            <td style="vertical-align: middle;font-size: 14px !important;">
-                                                                                <center>
-                                                                                    PHP &nbsp;50,000.00
-                                                                                </center>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr class="head" style="background-color: black  !important;">
-                                                                            <th class="text-center" style="color: white;font-size: 14px !important;">BRAND</th>
-                                                                            <th class="text-center" style="color: white;font-size: 14px !important;">PRODUCT</th>
-                                                                            <th class="text-center" style="color: white;font-size: 14px !important;" colspan="2">PRODUCT INFORMATION</th>
-                                                                            <th class="text-center" style="color: white;font-size: 14px !important;">PRODUCT PRICE</th>
-                                                                            <th class="text-center" style="color: white;font-size: 14px !important;">QTY</th>
-                                                                            <th class="text-center" style="color: white;font-size: 14px !important;">TOTAL PRICE</th>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="vertical-align: middle;">
-                                                                                <center style="font-size: 14px !important;">
-                                                                                    BAF
-                                                                                </center>
-                                                                            </td>
-                                                                            <td style="vertical-align: middle;">
-                                                                                <center style="font-size: 14px !important;">
-                                                                                    Haiku
-                                                                                </center>
-                                                                            </td>
-                                                                            <td colspan="2">
-                                                                                <table class="table table-bordered">
-                                                                                    <tbody>
-                                                                                        <tr style="background-color: #8c8c8c;">
-                                                                                            <td>
-                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Type</label></center>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Diameter</label></center>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Color</label></center>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Warranty</label></center>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td style="font-size: 14px !important;">L- Series (Indoor)</td>
-                                                                                            <td style="font-size: 14px !important;">60" - Universal - Black/ White</td>
-                                                                                            <td style="font-size: 14px !important;">
-                                                                                                pink
-                                                                                            </td>
-                                                                                            <td style="font-size: 14px !important;" rowspan="3">
-                                                                                                1 month
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr style="background-color: #8c8c8c;">
-                                                                                            <td>
-                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Power</label></center>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Extension</label></center>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">LED</label></center>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td style="font-size: 14px !important;">
-                                                                                                N/A
-                                                                                            </td>
-                                                                                            <td style="font-size: 14px !important;">
-                                                                                                N/A
-                                                                                            </td>
-                                                                                            <td style="font-size: 14px !important;">
-                                                                                                N/A
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </td>
-                                                                            <td style="vertical-align: middle;font-size: 14px !important;">
-                                                                                <center>
-                                                                                    PHP &nbsp; 60,000.00
-                                                                                </center>
-                                                                            </td>
-                                                                            <td style="vertical-align: middle;font-size: 14px !important;">
-                                                                                <center>
-                                                                                    1
-                                                                                </center>
-                                                                            </td>
-                                                                            <td style="vertical-align: middle;font-size: 14px !important;">
-                                                                                <center>
-                                                                                    PHP &nbsp;60,000.00
-                                                                                </center>
-                                                                            </td>
-                                                                        </tr>
+                                                                        
+                                                                        @foreach ($quotation->quotationProducts as $quotationProduct)
+                                                                            <tr>
+                                                                                <td style="vertical-align: middle;">
+                                                                                    <center style="font-size: 14px !important;">
+                                                                                        {{ $quotationProduct->product->productType->productName->productBrand->brand ?? '-' }}
+                                                                                    </center>
+                                                                                </td>
+                                                                                <td style="vertical-align: middle;">
+                                                                                    <center style="font-size: 14px !important;">
+                                                                                        {{ $quotationProduct->product->productType->productName->category_name ?? '-' }}
+                                                                                    </center>
+                                                                                </td>
+                                                                                <td colspan="2">
+                                                                                    <table class="table table-bordered">
+                                                                                        <tbody>
+                                                                                            <tr style="background-color: #8c8c8c;">
+                                                                                                <td>
+                                                                                                    <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Type</label></center>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Diameter</label></center>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Color</label></center>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Warranty</label></center>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td style="font-size: 14px !important;">{{ $quotationProduct->product->productType->type ?? '-' }}</td>
+                                                                                                <td style="font-size: 14px !important;">{{ $quotationProduct->diameter ?? '-' }}</td>
+                                                                                                <td style="font-size: 14px !important;">
+                                                                                                    {{ $quotationProduct->color ?? '-' }}
+                                                                                                </td>
+                                                                                                <td style="font-size: 14px !important;" rowspan="3">
+                                                                                                    {{ $quotationProduct->warranty ?? '-' }}
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr style="background-color: #8c8c8c;">
+                                                                                                <td>
+                                                                                                    <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Power</label></center>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Extension</label></center>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">LED</label></center>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                            <tr>
+                                                                                                <td style="font-size: 14px !important;">
+                                                                                                    {{ $quotationProduct->productVoltage->voltage ?? 'N/A' }}
+                                                                                                </td>
+                                                                                                <td style="font-size: 14px !important;">
+                                                                                                    {{ $quotationProduct->productExtension->extension ?? 'N/A' }}
+                                                                                                </td>
+                                                                                                <td style="font-size: 14px !important;">
+                                                                                                    {{ $quotationProduct->productLedLight->led ?? 'N/A' }}
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </td>
+                                                                                <td style="vertical-align: middle;font-size: 14px !important;">
+                                                                                    <center>
+                                                                                        PHP &nbsp;{{ $quotationProduct->product->price ?? 0.00 }}
+                                                                                    </center>
+                                                                                </td>
+                                                                                <td style="vertical-align: middle;font-size: 14px !important;">
+                                                                                    <center>
+                                                                                        {{ $quotationProduct->quantity }}
+                                                                                    </center>
+                                                                                </td>
+                                                                                <td style="vertical-align: middle;font-size: 14px !important;">
+                                                                                    <center>
+                                                                                        PHP &nbsp;{{ number_format($quotationProduct->line_total, 2) }}
+                                                                                    </center>
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endforeach
+
                                                                         <tr class="head" style="background-color: black  !important;">
                                                                             <th class="text-center" style="color: white;font-size: 14px !important;">NOTE:</th>
                                                                             <th class="text-center" style="color: white;" colspan="6"></th>
@@ -375,6 +291,7 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td colspan="7" style="font-size: 14px !important;">
+                                                                                {!! $quotation->notes !!}
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -393,7 +310,7 @@
                                                                                                 Payment Method:
                                                                                             </td>
                                                                                             <td style="padding:10px;vertical-align: middle;font-size: 14px !important;">
-                                                                                                Cash
+                                                                                                {{ $quotation->payment_method }}
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>
@@ -401,7 +318,7 @@
                                                                                                 Product Cost:
                                                                                             </td>
                                                                                             <td style="padding:10px;font-size: 14px !important;">
-                                                                                                PHP &nbsp;110,000.00
+                                                                                                PHP &nbsp;{{ number_format($quotation->total_product_cost, 2) }}
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>
@@ -409,7 +326,7 @@
                                                                                                 Delivery Fee:
                                                                                             </td>
                                                                                             <td style="padding:10px;font-size: 14px !important;">
-                                                                                                PHP &nbsp;500.00
+                                                                                                PHP &nbsp;{{ $quotation->delivery_fee }}
                                                                                             </td>
                                                                                         </tr>
                                                                                     </tbody>
@@ -423,7 +340,7 @@
                                                                                                 Labor Cost
                                                                                             </td>
                                                                                             <td style="padding:10px;font-size: 14px !important;">
-                                                                                                PHP &nbsp;100.00
+                                                                                                PHP &nbsp;{{ $quotation->labor_cost }}
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>
@@ -431,7 +348,7 @@
                                                                                                 Material Cost:
                                                                                             </td>
                                                                                             <td style="padding:10px;font-size: 14px !important;">
-                                                                                                PHP &nbsp;200.00
+                                                                                                PHP &nbsp;{{ $quotation->material_cost }}
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>
@@ -439,7 +356,7 @@
                                                                                                 Mobilization:
                                                                                             </td>
                                                                                             <td style="padding:10px;font-size: 14px !important;">
-                                                                                                PHP &nbsp;300.00
+                                                                                                PHP &nbsp;{{ $quotation->mobilization }}
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>
@@ -447,7 +364,7 @@
                                                                                                 Others (Installation fee)
                                                                                             </td>
                                                                                             <td style="padding:10px;font-size: 14px !important;">
-                                                                                                PHP &nbsp;400.00
+                                                                                                PHP &nbsp;{{ $quotation->other_install }}
                                                                                             </td>
                                                                                         </tr>
                                                                                     </tbody>
@@ -457,28 +374,19 @@
                                                                         <tr>
                                                                             <td style="background-color: black;" class="custom-tbl" colspan="3"><label style="padding:10px 10px 10px 0;color:white;font-size: 14px !important;">&nbsp;&nbsp;&nbsp;Other Fees:</label></td>
                                                                         </tr>
-                                                                        <tr>
-                                                                            <td style="padding:10px;" hidden="">
-                                                                                <input id="misc_item${a}" class="others form-control input-sm text-right" style="width:100%;" value="${a}" type="text" name="misc_item[]">
-                                                                            </td>
-                                                                            <td style="padding:10px;font-size: 14px !important;">
-                                                                                Descr 1
-                                                                            </td>
-                                                                            <td style="padding:10px;font-size: 14px !important;">
-                                                                                PHP &nbsp;150.00
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="padding:10px;" hidden="">
-                                                                                <input id="misc_item${a}" class="others form-control input-sm text-right" style="width:100%;" value="${a}" type="text" name="misc_item[]">
-                                                                            </td>
-                                                                            <td style="padding:10px;font-size: 14px !important;">
-                                                                                Descr 2
-                                                                            </td>
-                                                                            <td style="padding:10px;font-size: 14px !important;">
-                                                                                PHP &nbsp;250.00
-                                                                            </td>
-                                                                        </tr>
+                                                                        
+
+                                                                        @foreach ($quotation->quotationMiscs as $quotationMisc)
+                                                                            <tr>
+                                                                                <td style="padding:10px;font-size: 14px !important;">
+                                                                                    {{ $quotationMisc->description }}
+                                                                                </td>
+
+                                                                                <td style="padding:10px;font-size: 14px !important;">
+                                                                                    PHP &nbsp;{{ $quotationMisc->price }}
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endforeach
                                                                         <tr>
                                                                             <td style="background-color: black;" class="custom-tbl" colspan="3"><label style="padding:10px 10px 10px 0;color:white;font-size: 14px !important;">&nbsp;&nbsp;&nbsp;</label></td>
                                                                         </tr>
@@ -487,7 +395,7 @@
                                                                                 Subtotal:
                                                                             </td>
                                                                             <td style="padding:10px;font-size: 14px !important;">
-                                                                                PHP &nbsp;111,900.00
+                                                                                PHP &nbsp;{{ number_format($quotation->subtotal, 2) }}
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -495,7 +403,7 @@
                                                                                 Discount:
                                                                             </td>
                                                                             <td style="padding:10px;vertical-align: middle;font-size: 14px !important;">
-                                                                                PHP 1,000.00
+                                                                                PHP &nbsp;{{ number_format($quotation->discount, 2) }}
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -503,7 +411,7 @@
                                                                                 VAT(12%):
                                                                             </td>
                                                                             <td style="padding:10px;vertical-align: middle;font-size: 14px !important;">
-                                                                                PHP 13,308.00
+                                                                                PHP &nbsp;{{ number_format($quotation->vat, 2) }}
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -511,7 +419,7 @@
                                                                                 Total Amount(+ VAT):
                                                                             </td>
                                                                             <td style="padding:10px;vertical-align: middle;font-size: 14px !important;">
-                                                                                PHP 124,208.00
+                                                                                PHP &nbsp;{{ number_format($quotation->total, 2) }}
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -522,7 +430,7 @@
                                                                                 Grand Total:
                                                                             </td>
                                                                             <td style="padding:10px;vertical-align: middle;font-size: 14px !important;">
-                                                                                PHP 124,208.00
+                                                                                PHP {{ number_format($quotation->grand_total, 2) }}
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -531,7 +439,7 @@
                                                                     <tbody>
                                                                         <tr>
                                                                             <td class="custom-tbl" colspan="2" rowspan="3" style="padding:20px;font-size: 14px !important;">
-                                                                                <b>Quotation prepared by:</b>&nbsp;&nbsp; <u>Aeron(sales Dummy)</u>
+                                                                                <b>Quotation prepared by:</b>&nbsp;&nbsp; <u>{{ $quotation->createdBy->name }}</u>
                                                                                 <br>
                                                                                 <br>
                                                                                 This is a quotation on the goods, named, subject to the conditions noted below:<br>

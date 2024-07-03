@@ -13,6 +13,6 @@ class ProductBrand extends Model
     }
 
     public function getDynamicAttribute() {
-        return $this->load('productNames.productTypes.productDiameters');
+        return $this->load('productNames.productTypes.products');
     }
 }

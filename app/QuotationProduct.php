@@ -9,8 +9,8 @@ class QuotationProduct extends Model
     protected $guarded = [];
 
     /**Relationship */
-    public function productDiameter() {
-        return $this->belongsTo(ProductDiameter::class, 'product_diameter_id');
+    public function product() {
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function productVoltage() {
@@ -27,7 +27,7 @@ class QuotationProduct extends Model
 
     /** Accessor */
     public function getLineTotalAttribute() {
-        return $this->quantity * $this->productDiameter->product->price;
+        return $this->quantity * $this->product->price;
     }
 
     public function getTotalProductPriceAttribute() {
@@ -40,18 +40,23 @@ class QuotationProduct extends Model
 
     public function getDropDownAttribute() {
         return [
-            'names'     => $this->selected['brand']->productNames,
-            'types'     => $this->selected['name']->productTypes,
-            'diameters' => $this->selected['type']->productDiameters
+            'names'    => $this->selected['brand']->productNames,
+            'types'    => $this->selected['name']->productTypes,
+            'products' => $this->selected['type']->products
         ];
     }
 
     public function getSelectedAttribute() {
         return [
-            'brand'    => $this->productDiameter->productType->productName->productBrand,
-            'name'     => $this->productDiameter->productType->productName,
-            'type'     => $this->productDiameter->productType,
-            'diameter' => $this->productDiameter,
+            'brand'   => $this->product->productType->productName->productBrand,
+            'name'    => $this->product->productType->productName,
+            'type'    => $this->product->productType,
+            'product' => $this->product,
         ];
+    }
+
+    /** User-defined */
+    public function getProductBrandAttribute() {
+        return $this->product->productType->productName->productBrand;
     }
 }

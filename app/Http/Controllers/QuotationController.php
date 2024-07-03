@@ -62,11 +62,11 @@ class QuotationController extends Controller
                 'notes'          => request('notes')
             ]);
 
-            if (request()->has('diameter')) {
-                foreach (request('diameter') as $key => $diameter) {
+            if (request()->has('product_id')) {
+                foreach (request('product_id') as $key => $productId) {
                     QuotationProduct::create([
                         'quotation_id'         => $quotation->id,
-                        'product_diameter_id'  => $diameter,
+                        'product_id'           => $productId,
                         'product_voltage_id'   => request('voltage_id')[$key] ?? null,
                         'product_extension_id' => request('extension_id')[$key] ?? null,
                         'product_led_light_id' => request('led_light_id')[$key] ?? null,
@@ -115,6 +115,8 @@ class QuotationController extends Controller
         DB::beginTransaction();
 
         try {
+            abort_if($quotation->has_approved, 403, 'Quotation already approved');
+
             $newQuotation = Quotation::create([
                 'id'      => $quotation->revisionId(),
                 'root_id' => $quotation->root_id,
@@ -226,12 +228,19 @@ class QuotationController extends Controller
     }
 
     public function print(Quotation $quotation) {
+        abort_unless($quotation->is_approved, 403, 'Quotation must be approved first.');
         return view('quotations.print.index', compact('quotation'));
     }
 
     /** Upload Image */
     public function uploadQuotationImage() {
         try {
+            if (request('quotation_id')) {
+                $quotation = Quotation::find(request('quotation_id'));
+
+                abort_if($quotation->has_approved, 403, 'Unable to upload image');
+            }
+
             $filename = $this->filenameByDate(request('file'));
             $this->storeImage('img-quotations', $filename, request('file'));
 

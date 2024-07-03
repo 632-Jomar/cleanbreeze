@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\ActivityLog;
 use App\Product;
 use App\ProductBrand;
-use App\ProductDiameter;
 use App\ProductExtension;
 use App\ProductLedLight;
 use App\ProductName;
@@ -29,7 +28,7 @@ class ProductController extends Controller
 
     public function create() {
         $productBrands = ProductBrand::orderBy('brand')->get();
-        $productNames  = PRoductName::orderBy('category_name')->get();
+        $productNames  = ProductName::orderBy('category_name')->get();
 
         return view('products.create', compact('productBrands', 'productNames'));
     }
@@ -53,15 +52,10 @@ class ProductController extends Controller
                 ['product_name_id' => $productName->id]
             );
 
-            $producDiameter = ProductDiameter::firstOrCreate([
-                'product_type_id' => $productType->id,
-                'diameter'        => request('diameter')
-            ]);
-
-            $product = Product::firstOrCreate([
-                'product_diameter_id' => $producDiameter->id,
-                'price'               => request('price')
-            ]);
+            $product = Product::updateOrCreate(
+                ['product_type_id' => $productType->id, 'diameter' => request('diameter')],
+                ['price'           => request('price')]
+            );
 
             ActivityLog::create([
                 'entity_type' => 'Product',
@@ -156,7 +150,7 @@ class ProductController extends Controller
 
     public function show(Product $product) {
         if (request()->ajax()) {
-            return $product->load(['productDiameter.productType.productName.productBrand']);
+            return $product->load(['productType.productName.productBrand']);
         }
     }
 
@@ -164,14 +158,9 @@ class ProductController extends Controller
         DB::beginTransaction();
 
         try {
-            $productDiameter = ProductDiameter::updateOrCreate([
-                'diameter'        => request('diameter'),
-                'product_type_id' => request('product_type_id')
-            ]);
-
             $product->update([
-                'product_diameter_id' => $productDiameter->id,
-                'price'               => request('price')
+                'diameter' => request('diameter'),
+                'price'    => request('price')
             ]);
 
             ActivityLog::create([
@@ -183,7 +172,7 @@ class ProductController extends Controller
 
             return response([
                 'message' => 'Product has been updated successfully.',
-                'data'    => $product->load('productDiameter')
+                'data'    => $product
             ]);
 
         } catch (\Throwable $th) {
@@ -196,6 +185,7 @@ class ProductController extends Controller
         DB::beginTransaction();
 
         try {
+            abort_if($product->quotationProducts->count(), 406, 'This is used by quotations.'); 
             $product->delete();
 
             ActivityLog::create([

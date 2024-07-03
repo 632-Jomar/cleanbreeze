@@ -23,6 +23,10 @@ class ProductApiController extends Controller
         return ProductBrand::orderBy('brand')->get();
     }
 
+    public function findProducts(Product $product) {
+        return $product;
+    }
+
     public function productBrand(ProductBrand $productBrand) {
         return $productBrand->load('productNames.productTypes');
     }
@@ -32,11 +36,7 @@ class ProductApiController extends Controller
     }
 
     public function productType(ProductType $productType) {
-        return $productType->load(['productDiameters', 'productVoltages', 'productExtensions', 'productLedLights']);
-    }
-
-    public function productDiameter(ProductDiameter $productDiameter) {
-        return $productDiameter->load('product');
+        return $productType->load(['products', 'productVoltages', 'productExtensions', 'productLedLights']);
     }
 
     public function productVoltage(ProductVoltage $productVoltage) {

@@ -53,17 +53,17 @@
                     </td>
 
                     <td>
-                        <select name="diameter[]" style="min-width: 100px" class="form-control form-control-sm select-description" required>
-                            <option value="" disabled selected>Select diameter</option>
+                        <select name="product_id[]" style="min-width: 100px" class="form-control form-control-sm select-description" required>
+                            <option value="" disabled selected>Select product</option>
                             
-                            @foreach ($quotationProduct->drop_down['diameters'] as $productDiameter)
-                                <option value="{{ $productDiameter->id }}" {{ $productDiameter->id == $quotationProduct->selected['diameter']->id ? 'selected' : '' }}>{{ $productDiameter->diameter }}</option>
+                            @foreach ($quotationProduct->drop_down['products'] as $product)
+                                <option value="{{ $product->id }}" {{ $product->id == $quotationProduct->selected['product']->id ? 'selected' : '' }}>{{ $product->diameter }}</option>
                             @endforeach
                         </select>
                     </td>
 
                     <td><input name="color[]" style="min-width: 100px" type="text" class="form-control form-control-sm text-right input-color" value="{{ $quotationProduct->color }}"></td>
-                    <td><input name="quantity[]" style="min-width: 60px" type="number" step="1" min="0" class="form-control form-control-sm text-right input-quantity" value="{{ $quotationProduct->quantity }}"></td>
+                    <td><input name="quantity[]" style="min-width: 60px" type="number" step="1" min="0" class="form-control form-control-sm text-right input-quantity has-spin" value="{{ $quotationProduct->quantity }}"></td>
                     <td>
                         <input style="min-width: 100px" type="number" class="form-control form-control-sm text-right input-subtotal" value="{{ $quotationProduct->line_total }}" readonly>
                         <input type="hidden" class="input-price" value="{{ $quotationProduct->line_total ?? 0 }}" readonly>
@@ -108,7 +108,7 @@
 
                                 <td>
                                     <select name="led_light_id[]" class="form-control form-control-sm select-led">
-                                        <option value="">Select led</option>
+                                        <option value="">Select LED</option>
 
                                         @foreach ($quotationProduct->selected['type']->productLedLights as $led)
                                             <option value="{{ $led->id }}" {{ $led->id == $quotationProduct->product_led_light_id ? 'selected' : '' }}>{{ $led->led }}</option>

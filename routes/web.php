@@ -26,15 +26,15 @@ Route::middleware(['auth'])->group(function () {
     /** Quotation (others) */
     Route::post('quotations/upload-image', 'QuotationController@uploadQuotationImage');
     Route::post('quotations/{quotation}/approve', 'QuotationController@approve');
-    Route::get('quotations/{quotation}/print', 'QuotationController@print');
+    Route::get('quotations/{quotation}/print', 'QuotationController@print')->name('quotations.print');
 
     /** Report */
     Route::get('reports', 'ReportController@index')->name('reports.index');
 
     Route::resources([
-        'accounts'   => 'AccountController',
-        'products'   => 'ProductController',
-        'quotations' => 'QuotationController',
+        'accounts'      => 'AccountController',
+        'products'      => 'ProductController',
+        'quotations'    => 'QuotationController',
         'activity-logs' => 'ActivityLogController'
     ]);
 });

@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="col-5 text-right">
-                    <a class="btn btn-info">
+                    <a href="{{ route('quotations.print', $quotation) }}" class="btn btn-info">
                         Print
                     </a>
 
@@ -47,7 +47,7 @@
                         </div>
     
                         <div class="col-9 col-lg-4">
-                            <input type="text" class="form-control text-center" value="{{ $quotation->id }}" readonly>
+                            <input type="text" class="form-control text-center" value="{{ $quotation->id }}" id="quotation_id" readonly>
                         </div>
                     </div>
 

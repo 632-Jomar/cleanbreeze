@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::namespace('Api')->group(function() {
     Route::get('products', 'ProductApiController@products');
+    Route::get('products/{product}', 'ProductApiController@findProducts');
 
     Route::get('product-brands', 'ProductApiController@productBrands');
     Route::get('product-names/{product_brand}/brand', 'ProductApiController@name');
@@ -27,7 +28,6 @@ Route::namespace('Api')->group(function() {
     Route::get('product-brands/{product_brand}', 'ProductApiController@productBrand');
     Route::get('product-names/{product_name}', 'ProductApiController@productName');
     Route::get('product-types/{product_type}', 'ProductApiController@productType');
-    Route::get('product-diameters/{product_diameter}', 'ProductApiController@productDiameter');
 
     Route::get('product-voltages/{product_voltage}', 'ProductApiController@productVoltage');
     Route::get('product-extensions/{product_extension}', 'ProductApiController@productExtension');

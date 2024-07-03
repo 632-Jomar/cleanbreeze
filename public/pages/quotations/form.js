@@ -1,4 +1,6 @@
 $(function() {
+    let quotationId = $('#quotation_id').val() ?? '';
+
     let productComputation = {
         qty: 0,
         price: 0,
@@ -116,13 +118,13 @@ $(function() {
                             </td>
 
                             <td>
-                                <select name="diameter[]" style="min-width: 100px" class="form-control form-control-sm select-description" required>
-                                    <option value="" disabled selected>Select diameter</option>
+                                <select name="product_id[]" style="min-width: 100px" class="form-control form-control-sm select-description" required>
+                                    <option value="" disabled selected>Select product</option>
                                 </select>
                             </td>
 
                             <td><input name="color[]" style="min-width: 100px" type="text" class="form-control form-control-sm text-right input-color"></td>
-                            <td><input name="quantity[]" style="min-width: 60px" type="number" step="1" min="0" class="form-control form-control-sm text-right input-quantity"></td>
+                            <td><input name="quantity[]" style="min-width: 60px" type="number" step="1" min="0" class="form-control form-control-sm text-right input-quantity has-spin"></td>
                             <td>
                                 <input style="min-width: 100px" type="number" class="form-control form-control-sm text-right input-subtotal" readonly>
                                 <input type="hidden" class="input-price" readonly>
@@ -143,7 +145,7 @@ $(function() {
                                     <tr>
                                         <td>
                                             <select name="voltage_id[]" class="form-control form-control-sm select-power">
-                                                <option value="">Select voltage</option>
+                                                <option value="" selected>Select voltage</option>
                                             </select>
 
                                             <input type="hidden" class="power-price">
@@ -151,7 +153,7 @@ $(function() {
 
                                         <td>
                                             <select name="extension_id[]" class="form-control form-control-sm select-mount">
-                                                <option value="">Select extension</option>
+                                                <option value="" selected>Select extension</option>
                                             </select>
 
                                             <input type="hidden" class="mount-price">
@@ -159,7 +161,7 @@ $(function() {
 
                                         <td>
                                             <select name="led_light_id[]" class="form-control form-control-sm select-led">
-                                                <option value="">Select led</option>
+                                                <option value="" selected>Select LED</option>
                                             </select>
 
                                             <input type="hidden" class="led-price">
@@ -207,7 +209,7 @@ $(function() {
             this.onChangeBrand();
             this.onChangeProductName();
             this.onChangeType();
-            this.onChangeDiameter();
+            this.onChangeProduct();
             this.onChangeQuantity();
             this.onChangePower();
             this.onChangeMount();
@@ -217,11 +219,11 @@ $(function() {
         empty: {
             product(el) { productItem.target.product(el).empty().append('<option value="" disabled selected>Select category</option>') },
             type(el)    { productItem.target.type(el).empty().append('<option value="" disabled selected>Select type</option>') },
-            descr(el)   { productItem.target.descr(el).empty().append('<option value="" disabled selected>Select diameter</option>') },
+            descr(el)   { productItem.target.descr(el).empty().append('<option value="" disabled selected>Select product</option>') },
 
-            power(el)   { productItem.target.power(el).empty().append('<option value="" disabled selected>Select voltage</option>') },
-            mount(el)   { productItem.target.mount(el).empty().append('<option value="" disabled selected>Select extension</option>') },
-            led(el)     { productItem.target.led(el).empty().append('<option value="" disabled selected>Select LED</option>') },
+            power(el)   { productItem.target.power(el).empty().append('<option value="" selected>Select voltage</option>') },
+            mount(el)   { productItem.target.mount(el).empty().append('<option value="" selected>Select extension</option>') },
+            led(el)     { productItem.target.led(el).empty().append('<option value="" selected>Select LED</option>') },
         },
 
         target: {
@@ -297,7 +299,7 @@ $(function() {
                         url: `/api/product-types/${id}`,
                         beforeSend: swalLoading(),
                         success: function(response) {
-                            $.each(response.product_diameters, function(i, e) {
+                            $.each(response.products, function(i, e) {
                                 productItem.target.descr(el).append(`<option value="${e.id}">${e.diameter}</option>`);
                             });
 
@@ -320,24 +322,22 @@ $(function() {
             });
         },
 
-        onChangeDiameter() {
+        onChangeProduct() {
             $(document).on('change', '.select-description', function() {
                 let id = $(this).val();
                 let el = this;
 
                 if (id) {
                     $.get({
-                        url: `/api/product-diameters/${id}`,
+                        url: `/api/products/${id}`,
                         beforeSend: swalLoading(),
                         success: function(response) {
-                            console.log(response);
-                            $(el).closest('.item-div').find('.input-price').val(response.product.price);
+                            $(el).closest('.item-div').find('.input-price').val(response.price);
                             Swal.close();
 
                             productComputation.initItem(el);
                         },
                         error: function(error) {
-                            console.log(error);
                             swalErrorAjax(error);
                         }
                     });
@@ -524,7 +524,7 @@ $(function() {
         data.append("file", file);
 
         $.ajax({
-            url: "/quotations/upload-image",
+            url: "/quotations/upload-image?quotation_id=" + quotationId,
             method: "POST",
             data: data,
             contentType: false,

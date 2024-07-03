@@ -38,10 +38,10 @@
                             @forelse ($products as $key => $product)
                                 <tr>
                                     <td class="align-middle text-center product_number">{{ $product->id }}.</td>
-                                    <td class="align-middle text-center product_brand">{{ $product->productDiameter->productType->productName->productBrand->brand ?? '' }}</td>
-                                    <td class="align-middle text-center product_name">{{ $product->productDiameter->productType->productName->category_name ?? '' }}</td>
-                                    <td class="align-middle text-center product_type">{{ $product->productDiameter->productType->type ?? '' }}</td>
-                                    <td class="align-middle text-center product_diameter">{{ $product->productDiameter->diameter ?? '' }}</td>
+                                    <td class="align-middle text-center product_brand">{{ $product->productType->productName->productBrand->brand ?? '' }}</td>
+                                    <td class="align-middle text-center product_name">{{ $product->productType->productName->category_name ?? '' }}</td>
+                                    <td class="align-middle text-center product_type">{{ $product->productType->type ?? '' }}</td>
+                                    <td class="align-middle text-center product_diameter">{{ $product->diameter ?? '' }}</td>
                                     <td class="align-middle text-center product_price">{{ $product->price ?? '' }}</td>
                                     <td class="align-middle text-center">
                                         <button type="button" class="btn btn-block btn-sm btn-success btn-edit" data-id="{{ $product->id }}">
