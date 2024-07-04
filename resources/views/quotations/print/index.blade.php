@@ -58,7 +58,7 @@
                                                     <tbody>
                                                         <tr>
                                                             <td class="image-print">
-                                                                <img src="{{ asset('assets/logos/logophil.png') }}" style="margin-bottom: 20px; width:350px; background: -webkit-linear-gradient(left, #6EC1E4, #6EC1E4);">
+                                                                <img src="{{ asset('assets/logos/cleanbreeze.png') }}" style="margin-bottom: 20px; width:350px;">
                                                                 <center>
                                                                     <table>
                                                                         <tbody>
@@ -191,7 +191,7 @@
                                                                             <th class="text-center" style="color: white;font-size: 14px !important;">TOTAL PRICE</th>
                                                                         </tr>
                                                                         
-                                                                        @foreach ($quotation->quotationProducts as $quotationProduct)
+                                                                        @forelse ($quotation->quotationProducts as $quotationProduct)
                                                                             <tr>
                                                                                 <td style="vertical-align: middle;">
                                                                                     <center style="font-size: 14px !important;">
@@ -271,7 +271,16 @@
                                                                                     </center>
                                                                                 </td>
                                                                             </tr>
-                                                                        @endforeach
+                                                                        @empty
+                                                                            <tr>
+                                                                                <td>&nbsp;</td>
+                                                                                <td>&nbsp;</td>
+                                                                                <td>&nbsp;</td>
+                                                                                <td>&nbsp;</td>
+                                                                                <td>&nbsp;</td>
+                                                                                <td>&nbsp;</td>
+                                                                            </tr>
+                                                                        @endforelse
 
                                                                         <tr class="head" style="background-color: black  !important;">
                                                                             <th class="text-center" style="color: white;font-size: 14px !important;">NOTE:</th>
