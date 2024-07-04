@@ -13,6 +13,8 @@
 
 Auth::routes(['register' => false]);
 
+Route::redirect('/', '/login');
+
 Route::middleware(['auth'])->group(function () {
     Route::post('products/category', 'ProductController@storeCategory');
 
