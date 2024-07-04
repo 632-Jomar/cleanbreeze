@@ -91,7 +91,7 @@ class Quotation extends Model
                 : 'PENDING';
         }
 
-        return "<p class='badge badge-$class m-0 p-2'>
+        return "<p class='text-wrap badge badge-$class m-0 p-2'>
             $status
         </p>";
     }
@@ -134,5 +134,22 @@ class Quotation extends Model
 
     public function getExpirationDateAttribute() {
         return;
+    }
+
+    /** User-defined */
+    public static function paginatedRecords() {
+        $results = self::where('id', 'like', '%' . request('search') . '%')
+            ->orWhere('name', 'like', '%' . request('search') . '%')
+            ->orWhereHas('createdBy', function($query) {
+                $query->where('name', 'like', '%'. request('search') . '%');
+            })
+            ->orderBy('id', 'DESC')
+            ->paginate(10);
+
+        $results->appends([
+            'search' => request('search')
+        ]);
+
+        return $results;
     }
 }
