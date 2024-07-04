@@ -58,7 +58,7 @@ class QuotationController extends Controller
 
                 'payment_method' => request('payment_method'),
                 'discount'       => request('discount'),
-                'is_vat'         => request('is_vat'),
+                'is_vat'         => request('is_vat') ?? 0,
                 'notes'          => request('notes')
             ]);
 
@@ -137,18 +137,18 @@ class QuotationController extends Controller
 
                 'payment_method' => request('payment_method'),
                 'discount'       => request('discount'),
-                'is_vat'         => request('is_vat'),
+                'is_vat'         => request('is_vat') ?? 0,
                 'notes'          => request('notes')
             ]);
 
-            if (request()->has('diameter')) {
-                foreach (request('diameter') as $key => $diameter) {
+            if (request()->has('product_id')) {
+                foreach (request('product_id') as $key => $productId) {
                     QuotationProduct::create([
-                        'quotation_id'         => $newQuotation->id,
-                        'product_diameter_id'  => $diameter,
-                        'product_voltage_id'   => request('voltage_id')[$key],
-                        'product_extension_id' => request('extension_id')[$key],
-                        'product_led_light_id' => request('led_light_id')[$key],
+                        'quotation_id'         => $quotation->id,
+                        'product_id'           => $productId,
+                        'product_voltage_id'   => request('voltage_id')[$key] ?? null,
+                        'product_extension_id' => request('extension_id')[$key] ?? null,
+                        'product_led_light_id' => request('led_light_id')[$key] ?? null,
                         'warranty'             => request('warranty')[$key],
                         'color'                => request('color')[$key],
                         'quantity'             => request('quantity')[$key]
