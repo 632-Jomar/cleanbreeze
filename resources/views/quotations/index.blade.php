@@ -20,7 +20,7 @@
                             <input type="text" class="form-control" placeholder="Search quotation no, client name or sales rep" name="search" value="{{ request('search') }}">
             
                             <span class="input-group-append">
-                                <button type="button" class="btn btn-info"><i class="fa fa-search"></i></button>
+                                <button type="submit" class="btn btn-info"><i class="fa fa-search"></i></button>
                             </span>
                         </div>
                     </form>
@@ -73,7 +73,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td class="text-center" colspan="6">No records found.</td>
+                            <td class="text-center" colspan="{{ auth()->user()->user_type_id == 1 ? 7 : 6 }}">No records found.</td>
                         </tr>
                     @endforelse
                 </table>
