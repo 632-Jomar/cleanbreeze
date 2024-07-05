@@ -59,7 +59,9 @@ class QuotationController extends Controller
                 'payment_method' => request('payment_method'),
                 'discount'       => request('discount'),
                 'is_vat'         => request('is_vat') ?? 0,
-                'notes'          => request('notes')
+                'notes'          => request('notes'),
+
+                'created_by' => auth()->id()
             ]);
 
             if (request()->has('product_id')) {
@@ -138,7 +140,9 @@ class QuotationController extends Controller
                 'payment_method' => request('payment_method'),
                 'discount'       => request('discount'),
                 'is_vat'         => request('is_vat') ?? 0,
-                'notes'          => request('notes')
+                'notes'          => request('notes'),
+
+                'created_by' => $quotation->created_by
             ]);
 
             if (request()->has('product_id')) {

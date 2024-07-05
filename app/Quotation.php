@@ -2,13 +2,10 @@
 
 namespace App;
 
-use App\Http\Traits\HasCreatedBy;
 use Illuminate\Database\Eloquent\Model;
 
 class Quotation extends Model
 {
-    use HasCreatedBy;
-
     protected $casts = ['id' => 'string'];
     protected $guarded = [];
     protected $dates = ['created_at'];
@@ -133,7 +130,7 @@ class Quotation extends Model
     }
 
     public function getExpirationDateAttribute() {
-        return;
+        return $this->created_at->modify('+1 month');
     }
 
     /** User-defined */
