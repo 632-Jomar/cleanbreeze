@@ -29,7 +29,7 @@
                                     <td class="align-middle py-1">{{ $activityLog->entity_type }}</td>
                                     <td class="align-middle py-1" style="line-height: 110%">{{ $activityLog->created_at->format('Y, M d') }} <span class="text-xs">{{ $activityLog->created_at->format('(h:i a)') }}</span></td>
                                     <td class="align-middle py-1">{{ $activityLog->description }}</td>
-                                    <td class="align-middle py-1">{{ $activityLog->user->name }}</td>
+                                    <td class="align-middle py-1">{{ $activityLog->user->name ?? '' }}</td>
                                 </tr>
                             @empty
                                 <tr>
