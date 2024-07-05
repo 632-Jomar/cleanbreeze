@@ -133,6 +133,6 @@ class Quotation extends Model
     }
 
     public function getExpirationDateAttribute() {
-        return;
+        return $this->created_at->modify('+1 month');
     }
 }
