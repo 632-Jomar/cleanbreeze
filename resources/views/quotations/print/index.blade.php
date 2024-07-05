@@ -63,13 +63,13 @@
                                                                     <table>
                                                                         <tbody>
                                                                             <tr>
-                                                                                <th>721 Aurora Blvd. Brgy. Mariana, Quezon City</th>
+                                                                                <th>Unit 515,17 & 19 5th Floor, P&S Building 717 Aurora Blvd. Brgy. Mariana, Quezon City</th>
                                                                             </tr>
                                                                             <tr>
-                                                                                <th>Tel: (02)239-8281 Fax: (02)238-4011</th>
+                                                                                <th>Tel: +632 8650.7257 | +632.966.554.1030</th>
                                                                             </tr>
                                                                             <tr>
-                                                                                <th>Email: contact@philgeogreen.com</th>
+                                                                                <th>Email: contact@cleanbreezeph.com</th>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
@@ -113,7 +113,7 @@
                                                                                     <label>Expiration Date:</label>
                                                                                 </td>
                                                                                 <td style="padding: 10px;">
-                                                                                    <label>{{ $quotation->expiration_date }}</label>
+                                                                                    <label>{{ $quotation->expiration_date->format('Y-m-d') }}</label>
                                                                                 </td>
                                                                             </tr>
                                                                         </tbody>
