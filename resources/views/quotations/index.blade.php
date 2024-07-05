@@ -65,7 +65,7 @@
 
                             @if (auth()->user()->user_type_id == 1)
                                 <td class="align-middle">
-                                    <button class="btn btn-danger btn-delete" data-id="{{ $quotation->id }}">
+                                    <button class="btn btn-danger btn-delete" data-id="{{ $quotation->id }}" title="Delete">
                                         <i class="fa fa-times"></i>
                                     </button>
                                 </td>
