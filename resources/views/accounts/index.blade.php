@@ -24,20 +24,22 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card-box">
-                        <table id="table-accounts" class="table table-bordered">
-                            <thead>
-                                <tr class="bg-info text-light">
-                                    <td class="text-center">#</td>
-                                    <td class="text-center">Account Name</td>
-                                    <td class="text-center">User Type</td>
-                                    <td class="text-center">Email</td>
-                                </tr>
-                            </thead>
-                            
-                            <tbody class="bg-white">
-                                @include('accounts.tbody')
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table id="table-accounts" class="table table-bordered">
+                                <thead>
+                                    <tr class="bg-info text-light">
+                                        <td class="text-center">#</td>
+                                        <td class="text-center">Account Name</td>
+                                        <td class="text-center">User Type</td>
+                                        <td class="text-center">Email</td>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="bg-white">
+                                    @include('accounts.tbody')
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
