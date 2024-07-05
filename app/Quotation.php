@@ -2,13 +2,10 @@
 
 namespace App;
 
-use App\Http\Traits\HasCreatedBy;
 use Illuminate\Database\Eloquent\Model;
 
 class Quotation extends Model
 {
-    use HasCreatedBy;
-
     protected $casts = ['id' => 'string'];
     protected $guarded = [];
     protected $dates = ['created_at'];
