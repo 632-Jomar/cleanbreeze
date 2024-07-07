@@ -15,6 +15,9 @@ Auth::routes(['register' => false]);
 
 Route::redirect('/', '/login');
 
+Route::get('users/verify/{token}', 'VerificationController@showVerificationPage')->name('users.verification');
+Route::post('users/verify/{token}', 'VerificationController@verify')->name('users.verify');
+
 Route::middleware(['auth'])->group(function () {
     Route::post('products/category', 'ProductController@storeCategory');
 
@@ -39,9 +42,4 @@ Route::middleware(['auth'])->group(function () {
         'quotations'    => 'QuotationController',
         'activity-logs' => 'ActivityLogController'
     ]);
-});
-
-Route::get('sample', function() {
-    $passwordReset = \App\PasswordReset::first();
-    return view('email.users.reset-password', compact('passwordReset'));
 });

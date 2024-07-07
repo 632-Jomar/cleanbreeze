@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ActivityLog;
 use App\User;
 use App\UserType;
+use App\VerificationToken;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -48,14 +49,20 @@ class AccountController extends Controller
                 'password'       => Hash::make($password),
             ]);
 
+            $verificationToken = VerificationToken::create([
+                'email'      => $user->email,
+                'token'      => str_random(60),
+                'created_at' => now()
+            ]);
+
             ActivityLog::create([
                 'entity_type' => 'User',
                 'description' => "User account created by admin (User ID: {$user->id})"
             ]);
 
-            Mail::send('accounts.verify', compact('user', 'password'), function ($message) use ($user) {
+            Mail::send('email.users.verification', compact('verificationToken'), function ($message) use ($user) {
                 $message->to($user->email);
-                $message->subject('Login Credentials');
+                $message->subject('Account Verification');
             });
 
             $users = $this->getAllUsers();

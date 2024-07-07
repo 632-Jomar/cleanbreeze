@@ -31,15 +31,17 @@ class ForgotPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
-        abort(403, 'Forget password is temporary unavailable');
+    }
+
+    public function showLinkRequestForm()
+    {
+        return view('auth.passwords.request');
     }
 
     public function sendResetLinkEmail(Request $request)
     {
         $this->validate($request, [
             'email' => 'required|email|exists:users,email'
-        ], [
-            'exists' => trans('passwords.user')
         ]);
 
         try {
@@ -55,9 +57,5 @@ class ForgotPasswordController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
-        
-        // $user = User::where('email', request('email'))->first();
-
-        
     }
 }

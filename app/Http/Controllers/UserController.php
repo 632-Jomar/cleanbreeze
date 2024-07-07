@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\ActivityLog;
+use App\Http\Traits\ImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Traits\ImageTrait;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('userType:1,2');
+        $this->middleware('userType:1,2')->except(['showVerificationPage', 'verify']);
     }
 
     public function index() {

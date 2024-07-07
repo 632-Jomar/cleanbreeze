@@ -60,10 +60,47 @@ class User extends Authenticatable
         return $this->belongsTo(UserType::class, 'user_type_id');
     }
 
+    public function verificationToken() {
+        return $this->hasOne(VerificationToken::class, 'email', 'email');
+    }
+
     /** Accessor */
     public function getImageSrcAttribute() {
         $filename = $this->image_filename ?: 'user-icon.png';
 
         return '/storage/img-profile/' . $filename;
+    }
+
+    public function getIsVerifiedAttribute() {
+        return !!$this->email_verified_at;
+    }
+
+    public function getIsExpiredAttribute() {
+        if ($this->is_verified)
+            return false;
+
+        return now()->greaterThan($this->created_at->addDay());
+    }
+
+    public function getStatusAttribute() {
+        if ($this->email_verified_at) {
+            $class  = 'success';
+            $status = 'VERIFIED';
+
+        } else {
+            if ($this->verificationToken && $this->verificationToken->is_expired) {
+                $class  = 'danger';
+                $status = 'EXPIRED';
+            }
+
+            else {
+                $class  = 'warning';
+                $status = 'PENDING';
+            }
+        }
+
+        return "<p class='d-block text-wrap badge badge-$class m-0 p-2'>
+            $status
+        </p>";
     }
 }

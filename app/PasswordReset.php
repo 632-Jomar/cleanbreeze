@@ -12,20 +12,32 @@ class PasswordReset extends Model
     protected $primaryKey = 'email';
     public $incrementing = false;
 
-    public static function createLink() {
-        $createAt = now()->modify('+1 day');
-        $token    = str_random(60);
+    /** Accessor */
+    public function getResetLinkAttribute() {
+        return route('password.reset', [
+            'token' => $this->token,
+            'email' => $this->email
+        ]);
+    }
+    
+    public function getIsExpiredAttribute() {
+        return now()->greaterThan($this->created_at->addDay());
+    }
 
+    /** User-defined */
+    public static function getData() {
+        return self::where('email', request('email'))
+            ->where('token', request('token'))
+            ->first();
+    }
+
+    public static function createLink() {
         return self::updateOrCreate(
             ['email' => request('email')],
             [
-                'token'      => $token,
-                'created_at' => $createAt
+                'token'      => str_random(60),
+                'created_at' => now()
             ]
         );
-    }
-
-    public function getResetLinkAttribute() {
-        return route('password.reset', [$this->token, "email={$this->email}"]);
     }
 }
