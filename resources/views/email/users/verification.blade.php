@@ -22,13 +22,13 @@
                                         <img src="{{ embedImage('assets/logos/cleanbreeze.png', $message) }}" width="200" aria-hidden="true" style="margin-bottom:16px" alt="Google" class="CToWUd" data-bit="iit">
                                         
                                         <div style="font-family:'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;border-bottom:thin solid #dadce0;color:rgba(0,0,0,0.87);line-height:32px;padding-bottom:24px;text-align:center;word-break:break-word">
-                                            <div style="font-size:21px">Forget Password</div>
+                                            <div style="font-size:21px">Your Cleanbreeze account has been created by an administrator</div>
                                             <table align="center" style="margin-top:8px">
                                                 <tbody>
                                                     <tr style="line-height:normal">
                                                         <td>
                                                             <a style="font-family:'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;color:rgba(0,0,0,0.87);font-size:14px;line-height:20px">
-                                                                {{ $passwordReset->email }}
+                                                                {{ $verificationToken->email }}
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -37,13 +37,15 @@
                                         </div>
 
                                         <div style="font-family:Roboto-Regular,Helvetica,Arial,sans-serif;font-size:14px;color:rgba(0,0,0,0.87);line-height:20px;padding-top:20px;text-align:center">
-                                            The password reset link will expire within 24hrs. You may reset your password by clicking the link below:
+                                            To start using your account, please verify your email address and set your password by clicking the link below:
 
                                             <div style="padding: 25px 0;text-align:center">
-                                                <a href="{{ $passwordReset->reset_link }}" style="font-family:'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;line-height:16px;color:#ffffff;font-weight:400;text-decoration:none;font-size:14px;display:inline-block;padding:10px 24px;background-color:#4184f3;border-radius:5px;min-width:90px" target="_blank">
-                                                    Reset Password
+                                                <a href="{{ $verificationToken->verification_link }}" style="font-family:'Google Sans',Roboto,RobotoDraft,Helvetica,Arial,sans-serif;line-height:16px;color:#ffffff;font-weight:400;text-decoration:none;font-size:14px;display:inline-block;padding:10px 24px;background-color:#4184f3;border-radius:5px;min-width:90px" target="_blank">
+                                                    Verify Account
                                                 </a>
                                             </div>
+
+                                            Thank you for joining us! We look forward to having you on board.
                                         </div>
                                     </div>
 
