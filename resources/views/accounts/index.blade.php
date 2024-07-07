@@ -32,6 +32,8 @@
                                         <td class="text-center">Account Name</td>
                                         <td class="text-center">User Type</td>
                                         <td class="text-center">Email</td>
+                                        <td class="text-center">Status</td>
+                                        <td class="text-center">Action</td>
                                     </tr>
                                 </thead>
 
