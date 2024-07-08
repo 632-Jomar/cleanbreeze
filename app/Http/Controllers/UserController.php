@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('userType:1,2')->except(['showVerificationPage', 'verify']);
+        $this->middleware('userType:1,2');
     }
 
     public function index() {
@@ -61,7 +61,7 @@ class UserController extends Controller
 
     public function updatePassword() {
         $this->validate(request(), [
-            'password' => 'required|confirmed'
+            'password' => 'required|confirmed|min:8|max:16'
         ]);
 
         try {
