@@ -44,7 +44,8 @@ class VerificationController extends Controller
 
                 ActivityLog::create([
                     'entity_type' => 'User',
-                    'description' => "User account activated (User ID: {$user->id})"
+                    'description' => "User account activated (User ID: {$user->id})",
+                    'created_by'  => $user->id
                 ]);
 
                 $verification->delete();

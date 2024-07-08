@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Traits\HasCreatedBy;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,6 +10,7 @@ use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
+    use HasCreatedBy;
     use Notifiable;
 
     protected $guarded = [];
