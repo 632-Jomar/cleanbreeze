@@ -45,7 +45,11 @@ class ForgotPasswordController extends Controller
         ]);
 
         try {
-            $passwordReset = PasswordReset::createLink();
+            $passwordReset = PasswordReset::create([
+                'email'      => request('email'),
+                'token'      => str_random(60),
+                'created_at' => now()
+            ]);
 
             Mail::send('email.users.reset-password', compact('passwordReset'), function ($message) {
                 $message->to(request('email'));

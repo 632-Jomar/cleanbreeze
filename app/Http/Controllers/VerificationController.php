@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ActivityLog;
 use App\User;
 use App\VerificationToken;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class VerificationController extends Controller
         $user = User::where('email', request('email'))->first();
 
         if (! session('verified')) {
-            if ($user->is_verified || ! $verification)
+            if (! $user || ($user && $user->is_verified) || ! $verification)
                 abort(404);
         }
 
@@ -27,9 +28,9 @@ class VerificationController extends Controller
 
         $this->validate(request(), [
             'email'    => 'required|email|exists:users,email|exists:verification_tokens,email',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8|max:16|confirmed',
         ]);
-        
+
         try {
             $verification = VerificationToken::getData();
 
@@ -39,6 +40,11 @@ class VerificationController extends Controller
                 $user->update([
                     'email_verified_at' => now(),
                     'password'          => Hash::make(request('password'))
+                ]);
+
+                ActivityLog::create([
+                    'entity_type' => 'User',
+                    'description' => "User account activated (User ID: {$user->id})"
                 ]);
 
                 $verification->delete();
