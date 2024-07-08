@@ -135,13 +135,22 @@ class Quotation extends Model
 
     /** User-defined */
     public static function paginatedRecords() {
-        $results = self::where('id', 'like', '%' . request('search') . '%')
-            ->orWhere('name', 'like', '%' . request('search') . '%')
-            ->orWhereHas('createdBy', function($query) {
-                $query->where('name', 'like', '%'. request('search') . '%');
-            })
-            ->orderBy('id', 'DESC')
-            ->paginate(10);
+        if (auth()->user()->user_type_id == 2) {
+            $results = self::where('created_by', auth()->id());
+
+        } else {
+            $results = self::query();
+        }
+
+        $results = $results->where(function($query) {
+            $query->where('id', 'like', '%' . request('search') . '%')
+                ->orWhere('name', 'like', '%' . request('search') . '%')
+                ->orWhereHas('createdBy', function($query) {
+                    $query->where('name', 'like', '%'. request('search') . '%');
+                });
+        })
+        ->orderBy('id', 'DESC')
+        ->paginate(10);
 
         $results->appends([
             'search' => request('search')
