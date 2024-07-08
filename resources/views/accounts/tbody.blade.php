@@ -6,11 +6,11 @@
         <td class="align-middle">{{ $user->email }}</td>
         <td class="align-middle">{!! $user->status !!}</td>
         <td class="align-middle">
-            @if (! $user->is_verified)
+            {{-- @if (! $user->is_verified)
                 <button class="btn-resend btn btn-primary">
                     <i class="fa fa-sync"></i>
                 </button>
-            @endif
+            @endif --}}
 
             <button class="btn btn-danger" disabled>
                 <i class="fa fa-trash"></i>
