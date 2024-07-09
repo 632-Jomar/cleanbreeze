@@ -16,11 +16,15 @@ class UserTypeMiddleware
     public function handle($request, Closure $next, ...$userTypeId)
     {
         if (auth()->check()) {
-            foreach ($userTypeId as $key => $typeId) {
-                if (auth()->user()->user_type_id == $typeId)
-                    return $next($request);
+            if (auth()->user()->is_verified) {
+                foreach ($userTypeId as $key => $typeId) {
+                    if (auth()->user()->user_type_id == $typeId)
+                        return $next($request);
+                }
+            } else {
+                auth()->logout();
+                return redirect()->route('login');
             }
-
         }
 
         abort(403, 'Access Forbidden');
