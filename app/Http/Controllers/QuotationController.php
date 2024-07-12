@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\ActivityLog;
 use App\Http\Traits\ImageTrait;
+use App\Product;
 use App\ProductBrand;
+use App\ProductExtension;
+use App\ProductLedLight;
+use App\ProductVoltage;
 use App\Quotation;
 use App\QuotationMisc;
 use App\QuotationProduct;
@@ -66,15 +70,27 @@ class QuotationController extends Controller
 
             if (request()->has('product_id')) {
                 foreach (request('product_id') as $key => $productId) {
+                    $product          = Product::findOrFail($productId);
+                    $productVoltage   = ProductVoltage::find(request('voltage_id')[$key]);
+                    $productExtension = ProductExtension::find(request('extension_id')[$key]);
+                    $productLedLight  = ProductLedLight::find(request('led_light_id')[$key]);
+
                     QuotationProduct::create([
-                        'quotation_id'         => $quotation->id,
-                        'product_id'           => $productId,
-                        'product_voltage_id'   => request('voltage_id')[$key] ?? null,
-                        'product_extension_id' => request('extension_id')[$key] ?? null,
-                        'product_led_light_id' => request('led_light_id')[$key] ?? null,
-                        'warranty'             => request('warranty')[$key],
-                        'color'                => request('color')[$key],
-                        'quantity'             => request('quantity')[$key]
+                        'quotation_id' => $quotation->id,
+                        'product_id'   => $product->id,
+
+                        'product_voltage_id'   => $productVoltage->id ?? null,
+                        'product_extension_id' => $productExtension->id ?? null,
+                        'product_led_light_id' => $productLedLight->id ?? null,
+
+                        'voltage_price'   => $productVoltage->price ?? null,
+                        'extension_price' => $productExtension->price ?? null,
+                        'led_light_price' => $productLedLight->price ?? null,
+
+                        'warranty' => request('warranty')[$key],
+                        'color'    => request('color')[$key],
+                        'quantity' => request('quantity')[$key],
+                        'price'    => $product->price
                     ]);
                 }
             }
@@ -147,15 +163,27 @@ class QuotationController extends Controller
 
             if (request()->has('product_id')) {
                 foreach (request('product_id') as $key => $productId) {
+                    $product          = Product::findOrFail($productId);
+                    $productVoltage   = ProductVoltage::find(request('voltage_id')[$key]);
+                    $productExtension = ProductExtension::find(request('extension_id')[$key]);
+                    $productLedLight  = ProductLedLight::find(request('led_light_id')[$key]);
+
                     QuotationProduct::create([
-                        'quotation_id'         => $quotation->id,
-                        'product_id'           => $productId,
-                        'product_voltage_id'   => request('voltage_id')[$key] ?? null,
-                        'product_extension_id' => request('extension_id')[$key] ?? null,
-                        'product_led_light_id' => request('led_light_id')[$key] ?? null,
-                        'warranty'             => request('warranty')[$key],
-                        'color'                => request('color')[$key],
-                        'quantity'             => request('quantity')[$key]
+                        'quotation_id' => $quotation->id,
+                        'product_id'   => $product->id,
+
+                        'product_voltage_id'   => $productVoltage->id ?? null,
+                        'product_extension_id' => $productExtension->id ?? null,
+                        'product_led_light_id' => $productLedLight->id ?? null,
+
+                        'voltage_price'   => $productVoltage->price ?? null,
+                        'extension_price' => $productExtension->price ?? null,
+                        'led_light_price' => $productLedLight->price ?? null,
+
+                        'warranty' => request('warranty')[$key],
+                        'color'    => request('color')[$key],
+                        'quantity' => request('quantity')[$key],
+                        'price'    => $product->price
                     ]);
                 }
             }
