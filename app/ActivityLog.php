@@ -13,7 +13,15 @@ class ActivityLog extends Model
     protected $guarded = [];
     protected $dates = ['created_at'];
 
+    /** Relationship */
     public function user() {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /** Accessor */
+    public function getEntityDetailsAttribute() {
+        if ($this->entity_id) {
+            return "({$this->entity_type} ID: {$this->entity_id})";
+        }
     }
 }
