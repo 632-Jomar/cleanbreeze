@@ -84,11 +84,10 @@ class AccountController extends Controller
         DB::beginTransaction();
 
         try {
-            $verificationToken = VerificationToken::create([
-                'email'      => $user->email,
-                'token'      => str_random(60),
-                'created_at' => now()
-            ]);
+            $verificationToken = VerificationToken::updateOrCreate(
+                ['email' => $user->email],
+                ['token' => str_random(60), 'created_at' => now()]
+            );
 
             ActivityLog::create([
                 'entity_id'   => $user->id,
