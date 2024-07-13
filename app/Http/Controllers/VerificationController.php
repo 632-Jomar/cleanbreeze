@@ -43,8 +43,9 @@ class VerificationController extends Controller
                 ]);
 
                 ActivityLog::create([
+                    'entity_id'   => $user->id,
                     'entity_type' => 'User',
-                    'description' => "User account activated (User ID: {$user->id})",
+                    'description' => 'User account activated',
                     'created_by'  => $user->id
                 ]);
 

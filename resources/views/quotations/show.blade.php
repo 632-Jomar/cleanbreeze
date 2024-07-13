@@ -64,7 +64,7 @@
 
                                 <div class="dropdown-menu">
                                     @foreach ($cluster as $item)
-                                        <a class="dropdown-item {{ $item->id == $quotation->id ? 'active' : '' }}" href="{{ route('quotations.show', $item) }}">
+                                        <a class="dropdown-item {{ $item->id == $quotation->id ? 'active disabled' : '' }}" href="{{ route('quotations.show', $item) }}">
                                             {{ $item->id }} {{ $item->is_approved ? '(Approved)' : '' }}
                                         </a>
                                     @endforeach

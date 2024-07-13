@@ -106,8 +106,9 @@ class QuotationController extends Controller
             }
 
             ActivityLog::create([
+                'entity_id'   => $quotation->id,
                 'entity_type' => 'Quotation',
-                'description' => "New quotation added (Quotation ID: {$quotation->id})"
+                'description' => 'New quotation added'
             ]);
 
             DB::commit();
@@ -158,7 +159,8 @@ class QuotationController extends Controller
                 'is_vat'         => request('is_vat') ?? 0,
                 'notes'          => request('notes'),
 
-                'created_by' => $quotation->created_by
+                'created_by' => $quotation->created_by,
+                'revised_by' => auth()->id()
             ]);
 
             if (request()->has('product_id')) {
@@ -199,8 +201,9 @@ class QuotationController extends Controller
             }
 
             ActivityLog::create([
+                'entity_id'   => $newQuotation->id,
                 'entity_type' => 'Quotation',
-                'description' => "Quotation details updated (Quotation ID: {$newQuotation->id})"
+                'description' => 'Quotation details updated'
             ]);
 
             DB::commit();
@@ -220,11 +223,12 @@ class QuotationController extends Controller
 
         try {
             abort_if($quotation->is_approved, 403, "Approved quotation can't be deleted");
-            $quotation->delete();
+            $quotation->update(['deleted_at' => now()]);
 
             ActivityLog::create([
+                'entity_id'   => $quotation->id,
                 'entity_type' => 'Quotation',
-                'description' => "Quotation deleted"
+                'description' => 'Quotation deleted'
             ]);
 
             DB::commit();
@@ -245,8 +249,9 @@ class QuotationController extends Controller
             $quotation->update(['approved_at' => now()]);
 
             ActivityLog::create([
+                'entity_id'   => $quotation->id,
                 'entity_type' => 'Quotation',
-                'description' => "Quotation approved (Quotation ID: {$quotation->id})"
+                'description' => 'Quotation approved'
             ]);
 
             return response([

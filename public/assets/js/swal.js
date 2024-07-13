@@ -27,7 +27,7 @@ function swalError(text, title) {
 
 function swalQuestion(text, title) {
     return Swal.fire({
-        title: title || 'Proceed',
+        title: title || 'Confirmation',
         html: text || `Do you want to continue?`,
         showCancelButton: true
     });

@@ -21,4 +21,27 @@ $(function() {
             }
         });
     });
+
+    $(document).on('click', '.btn-resend', function(e) {
+        e.preventDefault();
+
+        let userId = $(this).data('id');
+
+        swalQuestion('Send a new verification link to this user?', 'Resend Link').then((result) => {
+            if (result.isConfirmed) {
+                $.post({
+                    url: '/accounts/' + userId + '/resend',
+                    beforeSend: swalLoading(),
+                    success: function(response) {
+                        swalSuccess(response.message).then(() => {
+                            $('#table-accounts tbody').html(response.view);
+                        });
+                    },
+                    error: function(error) {
+                        swalErrorAjax(error);
+                    }
+                });
+            }
+        });
+    });
 });

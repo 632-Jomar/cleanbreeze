@@ -56,8 +56,9 @@ class AccountController extends Controller
             ]);
 
             ActivityLog::create([
+                'entity_id'   => $user->id,
                 'entity_type' => 'User',
-                'description' => "User account created by admin (User ID: {$user->id})"
+                'description' => 'User account created by admin'
             ]);
 
             Mail::send('email.users.verification', compact('verificationToken'), function ($message) use ($user) {
@@ -71,6 +72,41 @@ class AccountController extends Controller
             return response([
                 'view'    => view('accounts.tbody', compact('users'))->render(),
                 'message' => 'Account has been created successfully.'
+            ]);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+    }
+
+    public function resend(User $user) {
+        DB::beginTransaction();
+
+        try {
+            $verificationToken = VerificationToken::create([
+                'email'      => $user->email,
+                'token'      => str_random(60),
+                'created_at' => now()
+            ]);
+
+            ActivityLog::create([
+                'entity_id'   => $user->id,
+                'entity_type' => 'User',
+                'description' => 'User activation link resend by admin'
+            ]);
+
+            Mail::send('email.users.verification', compact('verificationToken'), function ($message) use ($user) {
+                $message->to($user->email);
+                $message->subject('Account Verification');
+            });
+
+            $users = $this->getAllUsers();
+            DB::commit();
+
+            return response([
+                'view'    => view('accounts.tbody', compact('users'))->render(),
+                'message' => 'New verification link was sent successfully.'
             ]);
 
         } catch (\Throwable $th) {

@@ -71,8 +71,9 @@ class ResetPasswordController extends Controller
                 ]);
 
                 ActivityLog::create([
+                    'entity_id'   => $user->id,
                     'entity_type' => 'User',
-                    'description' => "User password reset (User ID: {$user->id})",
+                    'description' => 'User password reset',
                     'created_by'  => $user->id
                 ]);
 

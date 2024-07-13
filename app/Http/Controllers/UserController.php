@@ -40,8 +40,9 @@ class UserController extends Controller
                 $user->save();
 
                 ActivityLog::create([
+                    'entity_id'   => $user->id,
                     'entity_type' => 'User',
-                    'description' => "User details updated (User ID: {$user->id})"
+                    'description' => 'User details updated'
                 ]);
 
                 DB::commit();
@@ -72,8 +73,9 @@ class UserController extends Controller
 
             if (request('old_password') != request('password')) {
                 ActivityLog::create([
+                    'entity_id'   => $user->id,
                     'entity_type' => 'User',
-                    'description' => "User password updated (User ID: {$user->id})"
+                    'description' => 'User password updated'
                 ]);
 
                 $user->update([

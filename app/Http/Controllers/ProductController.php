@@ -21,7 +21,7 @@ class ProductController extends Controller
     }
 
     public function index() {
-        $products = Product::orderBy('id')->get();
+        $products = Product::where('deleted_at', null)->orderBy('id')->get();
 
         return view('products.index', compact('products'));
     }
@@ -58,8 +58,9 @@ class ProductController extends Controller
             );
 
             ActivityLog::create([
+                'entity_id'   => $product->id,
                 'entity_type' => 'Product',
-                'description' => "New product added (Product ID: {$product->id})"
+                'description' => 'New product added',
             ]);
 
             DB::commit();
@@ -96,12 +97,13 @@ class ProductController extends Controller
                     ['price' => request('voltage_price') ?? 0]
                 );
 
-                // if ($productVoltage->wasRecentlyCreated) {
-                //     ActivityLog::create([
-                //         'entity_type' => 'User',
-                //         'description' => "User details updated (Voltage ID: {$productVoltage->id})"
-                //     ]);
-                // }
+                if ($productVoltage->wasRecentlyCreated) {
+                    ActivityLog::create([
+                        'entity_id'   => $productVoltage->id,
+                        'entity_type' => 'Product Voltage',
+                        'description' => 'New product voltage added'
+                    ]);
+                }
             }
 
             if (request()->has('extension')) {
@@ -113,12 +115,13 @@ class ProductController extends Controller
                     ['price' => request('extension_price') ?? 0],
                 );
 
-                // if ($productExtension->wasRecentlyCreated) {
-                //     ActivityLog::create([
-                //         'entity_type' => 'User',
-                //         'description' => "User details updated (Extension ID: {$productExtension->id})"
-                //     ]);
-                // }
+                if ($productExtension->wasRecentlyCreated) {
+                    ActivityLog::create([
+                        'entity_id'   => $productExtension->id,
+                        'entity_type' => 'Product Extension',
+                        'description' => 'New product extension added'
+                    ]);
+                }
             }
 
             if (request()->has('led')) {
@@ -130,12 +133,13 @@ class ProductController extends Controller
                     ['price' => request('led_price') ?? 0],
                 );
 
-                // if ($productLedLight->wasRecentlyCreated) {
-                //     ActivityLog::create([
-                //         'entity_type' => 'User',
-                //         'description' => "User details updated (LED Light ID: {$productLedLight->id})"
-                //     ]);
-                // }
+                if ($productLedLight->wasRecentlyCreated) {
+                    ActivityLog::create([
+                        'entity_id'   => $productLedLight->id,
+                        'entity_type' => 'Product LED Light',
+                        'description' => 'New product LED light added'
+                    ]);
+                }
             }
 
             DB::commit();
@@ -164,8 +168,9 @@ class ProductController extends Controller
             ]);
 
             ActivityLog::create([
+                'entity_id'   => $product->id,
                 'entity_type' => 'Product',
-                'description' => "Product details updated (Product ID: {$product->id})"
+                'description' => 'Product details updated'
             ]);
 
             DB::commit();
@@ -186,9 +191,10 @@ class ProductController extends Controller
 
         try {
             abort_if($product->quotationProducts->count(), 406, 'This is used by quotations.'); 
-            $product->delete();
+            $product->update(['deleted_at' => now()]);
 
             ActivityLog::create([
+                'entity_id'   => $product->id,
                 'entity_type' => 'Product',
                 'description' => 'Product deleted'
             ]);

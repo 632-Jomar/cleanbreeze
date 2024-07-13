@@ -90,12 +90,10 @@ class User extends Authenticatable
             $status = 'VERIFIED';
 
         } else {
-            if ($this->verificationToken && $this->verificationToken->is_expired) {
-                $class  = 'danger';
-                $status = 'EXPIRED';
-            }
+            $class  = 'danger';
+            $status = 'EXPIRED';
 
-            else {
+            if ($this->verificationToken && !$this->verificationToken->is_expired) {
                 $class  = 'warning';
                 $status = 'PENDING';
             }

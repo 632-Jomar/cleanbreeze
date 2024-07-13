@@ -135,11 +135,10 @@ class Quotation extends Model
 
     /** User-defined */
     public static function paginatedRecords() {
-        if (auth()->user()->user_type_id == 2) {
-            $results = self::where('created_by', auth()->id());
+        $results = self::where('deleted_at', null);
 
-        } else {
-            $results = self::query();
+        if (auth()->user()->user_type_id == 2) {
+            $results = $results->where('created_by', auth()->id());
         }
 
         $results = $results->where(function($query) {
