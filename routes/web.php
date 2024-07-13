@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     /** Report */
     Route::get('reports', 'ReportController@index')->name('reports.index');
 
+    /** Accounts - Resend verification link */
     Route::post('accounts/{user}/resend', 'AccountController@resend');
 
     Route::resources([
