@@ -21,7 +21,7 @@ class ProductController extends Controller
     }
 
     public function index() {
-        $products = Product::where('deleted_at', null)->orderBy('id')->get();
+        $products = Product::where('deleted_at', null)->get()->sortBy('productType.productName.category_name', SORT_NATURAL);
 
         return view('products.index', compact('products'));
     }
