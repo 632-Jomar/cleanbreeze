@@ -89,7 +89,7 @@
                 </div>
 
                 <div class="modal-body text-center">
-                    <input type="file" id="upload" accept="image/*" class="mb-3">
+                    <input type="file" id="upload" accept="image/*" class="mb-3 mw-100">
                     <div id="croppie-container" style="display:none"></div>
 
                     <div class="text-center">
