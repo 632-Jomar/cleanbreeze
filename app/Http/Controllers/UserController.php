@@ -96,14 +96,8 @@ class UserController extends Controller
     }
 
     public function uploadImage() {
-        $this->validate(request(), [
-            'image_profile' => 'required|max:2048|mimes:png,jpg,jpeg'
-        ]);
-
         try {
-            $filename = $this->filename(request('image_profile'), 'PRF-');
-
-            $this->updateImage($this->folderName, auth()->user()->image_filename, $filename, request('image_profile'));
+            $filename = $this->saveImageBase64ToPng($this->folderName, auth()->user()->image_filename, request('image_profile'), 'PRF-');
 
             auth()->user()->update([
                 'image_filename' => $filename
@@ -118,6 +112,30 @@ class UserController extends Controller
             throw $th;
         }
     }
+
+    // public function uploadImage() {
+    //     $this->validate(request(), [
+    //         'image_profile' => 'required|max:2048|mimes:png,jpg,jpeg'
+    //     ]);
+
+    //     try {
+    //         $filename = $this->filename(request('image_profile'), 'PRF-');
+
+    //         $this->updateImage($this->folderName, auth()->user()->image_filename, $filename, request('image_profile'));
+
+    //         auth()->user()->update([
+    //             'image_filename' => $filename
+    //         ]);
+
+    //         return response([
+    //             'message' => 'Image has been uploaded successfully',
+    //             'src'     => auth()->user()->image_src
+    //         ]);
+
+    //     } catch (\Throwable $th) {
+    //         throw $th;
+    //     }
+    // }
 
     public function removeImage() {
         try {

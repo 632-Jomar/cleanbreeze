@@ -33,33 +33,6 @@ $(function() {
         });
     });
 
-    $('#upload_modal').on('hide.bs.modal', function() {
-        $('#image_profile').val('');
-    });
-
-    $('#upload_form').on('submit', function(e) {
-        e.preventDefault();
-
-        let formData = new FormData(this);
-
-        $.post({
-            url: '/profile/upload-image',
-            enctype: 'multipart/form-data',
-            processData: false,
-            contentType: false,
-            data: formData,
-            beforeSend: swalLoading(),
-            success: function(response) {
-                $('#img-profile-preview').attr('src', response.src);
-                $('#upload_modal').modal('hide');
-                swalSuccess(response.message);
-            },
-            error: function(error) {
-                swalErrorAjax(error);
-            }
-        });
-    });
-
     $('#btn-delete-img-profile').on('click', function() {
         swalQuestion(null, 'Delete image profile?').then((result) => {
             if (result.isConfirmed) {
