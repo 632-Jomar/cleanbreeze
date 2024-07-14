@@ -21,12 +21,15 @@ class UserTypeMiddleware
                     if (auth()->user()->user_type_id == $typeId)
                         return $next($request);
                 }
+
+                abort(403, "You don't have permission to access this page.");
+
             } else {
                 auth()->logout();
                 return redirect()->route('login')->withErrors(['email' => 'Unverified Account!']);
             }
         }
 
-        abort(403, 'Access Forbidden');
+        abort(401, 'Unauthenticated');
     }
 }
