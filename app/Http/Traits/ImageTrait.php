@@ -31,4 +31,16 @@ trait ImageTrait
         $this->deleteImage($folderName, $oldFilename);
         $this->storeImage($folderName, $newFilename, $file);
     }
+
+    public function saveImageBase64ToPng($folderName, $filename, $file, $prefix = '') {
+        $this->deleteImage($folderName, $filename);
+
+        $image     = str_replace('data:image/png;base64,', '', $file);
+        $image     = str_replace(' ', '+', $image);
+        $imageName = uniqid($prefix) .  '.png';
+
+        Storage::disk('public')->put("$folderName/$imageName", base64_decode($image));
+
+        return $imageName;
+    }
 }
