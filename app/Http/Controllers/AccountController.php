@@ -19,7 +19,7 @@ class AccountController extends Controller
     }
 
     public function getAllUsers() {
-        return User::orderBy('name')->get();
+        return User::orderBy('user_type_id')->orderBy('name')->get();
     }
 
     public function index() {
