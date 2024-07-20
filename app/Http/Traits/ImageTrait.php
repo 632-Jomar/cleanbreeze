@@ -19,6 +19,10 @@ trait ImageTrait
         return now()->format($format) . $this->getFileExtension($file);
     }
 
+    public function filenameByQuotation($file, $quotation) {
+        return $quotation->id . '-'. uniqid() . $this->getFileExtension($file);
+    }
+
     public function storeImage($folderName, $filename, $file) {
         Storage::disk('public')->putFileAs($folderName, $file, $filename);
     }

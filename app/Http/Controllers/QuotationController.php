@@ -276,14 +276,16 @@ class QuotationController extends Controller
                 $quotation = Quotation::find(request('quotation_id'));
 
                 abort_if($quotation->has_approved, 403, 'Unable to upload image');
+
+                $filename = $this->filenameByQuotation(request('file'), $quotation);
+                $this->storeImage('img-quotations', $filename, request('file'));
+
+                return response([
+                    'url' => "/storage/img-quotations/$filename"
+                ]);
             }
 
-            $filename = $this->filenameByDate(request('file'));
-            $this->storeImage('img-quotations', $filename, request('file'));
-
-            return response([
-                'url' => "/storage/img-quotations/$filename"
-            ]);
+            abort(404, 'Quotation ID not found.');
 
         } catch (\Throwable $th) {
             throw $th;
