@@ -58,24 +58,26 @@
                             <table class="table">
                                 <thead>
                                     <tr class="bg-info">				
-                                        <td width="10%">ORDER NO.</td>
-                                        <td>DATE</td>
-                                        <td>SALES REP.</td>
-                                        <td>CLIENT NAME</td>
-                                        <td>PRODUCT	TOTAL</td>
+                                        <td class="align-middle text-center" width="10%">ORDER NO.</td>
+                                        <td class="align-middle text-center" width="20%">DATE</td>
+                                        <td class="align-middle text-center">SALES REP.</td>
+                                        <td class="align-middle text-center">CLIENT NAME</td>
+                                        <td class="align-middle text-center">PRODUCT TOTAL</td>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     @forelse ($quotations as $quotation)
-                                        <td>{{ $quotation->id }}</td>
-                                        <td>
-                                            {{ $quotation->created_at->format('Y, M d') }} <br>
-                                            <span class="text-xs">{{ $quotation->created_at->format('(h:i a)') }}</span>
-                                        </td>
-                                        <td>{{ $quotation->createdBy->name }}</td>
-                                        <td>{{ $quotation->name ?? '-' }}</td>
-                                        <td class="text-right">{{ number_format($quotation->total_product_cost, 2) }}</td>
+                                        <tr>
+                                            <td>{{ $quotation->id }}</td>
+                                            <td>
+                                                {{ $quotation->created_at->format('Y, M d') }} <br>
+                                                <span class="text-xs">{{ $quotation->created_at->format('(h:i a)') }}</span>
+                                            </td>
+                                            <td>{{ $quotation->createdBy->name }}</td>
+                                            <td>{{ $quotation->name ?? '-' }}</td>
+                                            <td class="text-right">{{ number_format($quotation->total_product_cost, 2) }}</td>
+                                        </tr>
                                     @empty
                                         <tr>
                                             <td colspan="5" class="text-center">No quotations found</td>
@@ -85,7 +87,7 @@
 
                                 <tfoot>
                                     <tr class="bg-info">				
-                                        <td colspan="5" class="text-right">ORDER NO.</td>
+                                        <td colspan="5" class="text-right"></td>
                                     </tr>
                                 </tfoot>
                             </table>
