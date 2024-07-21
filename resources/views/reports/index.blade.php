@@ -3,6 +3,7 @@
 @push('page_scripts')
     <script src="{{ asset('plugins/chart.js/chart.min.js') }}"></script>
     <script src="{{ asset('plugins/chart.js/datalabels.min.js') }}"></script>
+    <script src="{{ asset('pages/reports/index.js') }}"></script>
 
     <script>
         $(function() {
@@ -115,8 +116,8 @@
 
                         <div class="col-xl-12 col-sm-6">
                             <div class="card">
-                                <div class="card-body pb-4">
-                                    <canvas id="quotationChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                <div class="card-body">
+                                    <canvas id="quotationChart" style="min-height: 220px; height: 220px; max-height: 220px; max-width: 100%;"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -141,13 +142,13 @@
                                     <tbody>
                                         @forelse ($paginated as $item)
                                             <tr>
-                                                <td class="lh-1">{{ $item->id }}</td>
-                                                <td class="lh-1">
-                                                    {{ $item->created_at->format('Y, M d') }} <br>
-                                                    <span class="text-xs">{{ $item->created_at->format('(h:i a)') }}</span>
+                                                <td class="lh-1 text-center"><a target="_blank" href="{{ route('quotations.show', $item) }}">{{ $item->id }}</a></td>
+                                                <td class="lh-1 text-center">
+                                                    {{ $item->created_at->format('Y, M d') }}
+                                                    <span class="text-xs d-block">{{ $item->created_at->format('(h:i a)') }}</span>
                                                 </td>
-                                                <td class="lh-1">{{ $item->createdBy->name }}</td>
-                                                <td class="lh-1">{{ $item->name ?? '-' }}</td>
+                                                <td class="lh-1 text-center">{{ $item->createdBy->name }}</td>
+                                                <td class="lh-1 text-center">{{ $item->name ?? '-' }}</td>
                                                 <td class="lh-1 text-right">{{ number_format($item->total_product_cost, 2) }}</td>
                                             </tr>
                                         @empty
