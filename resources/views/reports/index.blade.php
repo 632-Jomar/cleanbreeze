@@ -12,6 +12,7 @@
             let items = [];
             let counts = {};
 
+            // for loop is the fastest way to iterate array
             for (let i = 0; i < quotations.length; i++) {
                 let q = quotations[i];
 
@@ -40,7 +41,7 @@
                 ]
             };
 
-            var donutOptions = {
+            var quotationOptions = {
                 maintainAspectRatio : false,
                 responsive : true,
                 plugins: {
@@ -57,7 +58,7 @@
             new Chart(quotationChartCanvas, {
                 type: 'doughnut',
                 data: donutData,
-                options: donutOptions,
+                options: quotationOptions,
                 plugins: [ChartDataLabels]
             });
         });
