@@ -88,7 +88,7 @@ class Quotation extends Model
                 : 'PENDING';
         }
 
-        return "<p class='d-block text-wrap badge badge-$class m-0 p-2'>
+        return "<p class='d-block text-wrap badge badge-$class m-0 p-2' style='min-width: 100px'>
             $status
         </p>";
     }
