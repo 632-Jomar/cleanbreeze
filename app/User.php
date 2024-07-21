@@ -66,6 +66,10 @@ class User extends Authenticatable
         return $this->hasOne(VerificationToken::class, 'email', 'email');
     }
 
+    public function quotations() {
+        return $this->hasMany(Quotation::class, 'created_by');
+    }
+
     /** Accessor */
     public function getImageSrcAttribute() {
         $filename = $this->image_filename ?: 'user-icon.png';
