@@ -3,7 +3,7 @@
 @push('page_scripts')
     <script src="{{ asset('plugins/chart.js/chart.min.js') }}"></script>
     <script src="{{ asset('plugins/chart.js/datalabels.min.js') }}"></script>
-    <script src="{{ asset('pages/reports/index.js') }}"></script>
+    <script src="{{ asset('pages/reports/index.js?v=' . str_random(4)) }}"></script>
 
     <script>
         $(function() {

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @push('page_scripts')
-    <script src="{{ asset('pages/users/index.js') }}"></script>
-    <script src="{{ asset('pages/users/save-image.js') }}"></script>
+    <script src="{{ asset('pages/users/index.js?v=' . str_random(4)) }}"></script>
+    <script src="{{ asset('pages/users/save-image.js?v=' . str_random(4)) }}"></script>
 @endpush
 
 @section('content')

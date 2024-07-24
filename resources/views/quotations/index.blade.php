@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @push('page_scripts')
-    <script src="{{ asset('pages/quotations/index.js') }}"></script>
+    <script src="{{ asset('pages/quotations/index.js?v=' . str_random(4)) }}"></script>
 @endpush
 
 @section('content')
