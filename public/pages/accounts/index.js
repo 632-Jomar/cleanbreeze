@@ -50,7 +50,7 @@ $(function() {
 
         let userId = $(this).data('id');
 
-        swalQuestion('Once deleted, this user will no longer be able to access this system?', 'Delete User?').then((result) => {
+        swalQuestion('Once deleted, this user will no longer be able to access this system. Continue?', 'Delete User?').then((result) => {
             if (result.isConfirmed) {
                 $.post({
                     type: "DELETE",
