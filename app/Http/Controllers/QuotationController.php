@@ -124,6 +124,10 @@ class QuotationController extends Controller
     }
 
     public function show(Quotation $quotation) {
+        if (auth()->user()->user_type_id != 1) {
+            abort_unless($quotation->created_by == auth()->id(), 403, "You don't have permission to access this page");
+        }
+
         $brands  = ProductBrand::all();
         $cluster = Quotation::where('root_id', $quotation->root_id)->orderBy('id', 'DESC')->get();
 
