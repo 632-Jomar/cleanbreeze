@@ -58,7 +58,7 @@ class AccountController extends Controller
             ActivityLog::create([
                 'entity_id'   => $user->id,
                 'entity_type' => 'User',
-                'description' => 'User account created by admin'
+                'description' => 'User account was created by admin'
             ]);
 
             Mail::send('email.users.verification', compact('verificationToken'), function ($message) use ($user) {
@@ -72,6 +72,33 @@ class AccountController extends Controller
             return response([
                 'view'    => view('accounts.tbody', compact('users'))->render(),
                 'message' => 'Account has been created successfully.'
+            ]);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+    }
+
+    public function destroy($id) {
+        DB::beginTransaction();
+
+        try {
+            $user = User::findOrFail($id);
+            $user->delete();
+            $users = $this->getAllUsers();
+
+            ActivityLog::create([
+                'entity_id'   => $user->id,
+                'entity_type' => 'User',
+                'description' => 'User account was deleted by admin'
+            ]);
+
+            DB::commit();
+
+            return response([
+                'view'    => view('accounts.tbody', compact('users'))->render(),
+                'message' => 'Account has been deleted successfully.'
             ]);
 
         } catch (\Throwable $th) {
