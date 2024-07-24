@@ -50,7 +50,7 @@ class Quotation extends Model
 
     /** Relationship */
     public function createdBy() {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(User::class, 'created_by')->withTrashed();
     }
 
     public function quotationProducts() {

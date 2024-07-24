@@ -5,6 +5,7 @@ namespace App;
 use App\Http\Traits\HasCreatedBy;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Str;
 
@@ -12,6 +13,7 @@ class User extends Authenticatable
 {
     use HasCreatedBy;
     use Notifiable;
+    use SoftDeletes;
 
     protected $guarded = [];
     public $incrementing = false;
@@ -71,6 +73,12 @@ class User extends Authenticatable
     }
 
     /** Accessor */
+    public function getCanDeleteAttribute() {
+        $protectedEmail = ['632apps@gmail.com', 'jalarcon.632apps@gmail.com'];
+
+        return !in_array($this->email, $protectedEmail);
+    }
+
     public function getImageSrcAttribute() {
         $filename = $this->image_filename ?: 'user-icon.png';
 

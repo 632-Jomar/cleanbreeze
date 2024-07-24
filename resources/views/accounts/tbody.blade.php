@@ -6,9 +6,11 @@
         <td class="align-middle">{{ $user->email }}</td>
         <td class="align-middle">{!! $user->status !!}</td>
         <td class="align-middle text-nowrap">
-            <button class="btn btn-danger btn-sm" title="Delete User" disabled>
-                <i class="fa fa-user-slash"></i>
-            </button>
+            @if ($user->can_delete)
+                <button class="btn-delete btn btn-danger btn-sm" title="Delete User" data-id="{{ $user->id }}">
+                    <i class="fa fa-user-slash"></i>
+                </button>
+            @endif
 
             @if (! $user->is_verified)
                 <button class="btn-resend btn btn-primary btn-sm" data-id="{{ $user->id }}" title="Resend Link">
