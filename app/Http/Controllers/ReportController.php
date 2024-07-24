@@ -25,6 +25,8 @@ class ReportController extends Controller
             $quotations->where('created_by', request('created_by'));
         }
 
+        $quotations->latest();
+
         $paginated  = (clone $quotations)->paginate();
         $quotations = $quotations->with('quotationProducts.product.productType.productName.productBrand')->get(['id']);
 
