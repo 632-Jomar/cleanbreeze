@@ -38,8 +38,15 @@ function swalErrorAjax(response, title) {
     let message      = '';
 
     if (response.status == 419) {
-        Swal.fire('Session expired', 'Reloading');
-        return location.reload();
+        return Swal.fire({
+            title: 'Session Expired!',
+            html: 'Page will reload...',
+            timer: 2500,
+            timerProgressBar: true,
+            willClose: () => {
+                location.reload();
+            }
+        });
     }
 
     if (responseJSON?.errors) {
