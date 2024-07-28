@@ -257,7 +257,7 @@
                                                                                 </td>
                                                                                 <td style="vertical-align: middle;font-size: 14px !important;">
                                                                                     <center>
-                                                                                        PHP &nbsp;{{ $quotationProduct->price ?? 0.00 }}
+                                                                                        PHP <br>{{ $quotationProduct->price ? number_format($quotationProduct->price, 2) : 0.00 }}
                                                                                     </center>
                                                                                 </td>
                                                                                 <td style="vertical-align: middle;font-size: 14px !important;">
