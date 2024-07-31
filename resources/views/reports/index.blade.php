@@ -86,9 +86,9 @@
                                 <div class="card-body">
                                     <form id='quotation-form'>
                                         <select id="year" name="year" class="form-control mb-2">
-                                            @for ($i = date('Y'); date('Y') - $i <= 2 ; $i--)
-                                                <option value="{{ $i }}" {{ $i == request('year') ? 'selected' : '' }}>{{ $i }}</option>
-                                            @endfor
+                                            @foreach ($years as $year)
+                                                <option {{ request('year') == $year ? 'selected' : '' }}>{{ $year }}</option>
+                                            @endforeach
                                         </select>
 
                                         <select name="month" class="form-control mb-2">

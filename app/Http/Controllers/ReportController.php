@@ -13,7 +13,14 @@ class ReportController extends Controller
     }
 
     public function index() {
-        $quotations = Quotation::where('approved_at', '<>', null)->whereYear('created_at', request('year') ?? date('Y'));
+        $quotations = Quotation::where('approved_at', '<>', null);
+        $years      = (clone $quotations)->selectRaw('YEAR(created_at) as year')
+            ->groupBy('year')
+            ->orderBy('year', 'desc')
+            ->get()
+            ->pluck('year');
+
+        $quotations = $quotations->whereYear('created_at', request('year') ?? date('Y'));
 
         if (request('month')) {
             $quotations->whereMonth('created_at', request('month'));
@@ -30,6 +37,6 @@ class ReportController extends Controller
         $paginated  = (clone $quotations)->paginate();
         $quotations = $quotations->with('quotationProducts.product.productType.productName.productBrand')->get(['id']);
 
-        return view('reports.index', compact('quotations', 'paginated', 'salesReps'));
+        return view('reports.index', compact('quotations', 'paginated', 'salesReps', 'years'));
     }
 }
