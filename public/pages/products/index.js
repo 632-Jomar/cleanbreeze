@@ -12,7 +12,8 @@ $(function() {
             url: '/products/' + productId,
             beforeSend: swalLoading(),
             success: function(product) {
-                $('#product_name').val(product?.product_type?.product_name?.product_brand?.brand);
+                $('#product_brand').val(product?.product_type?.product_name?.product_brand?.brand);
+                $('#product_name').val(product?.product_type?.product_name?.category_name);
                 $('#product_type').val(product?.product_type?.type);
                 $('#product_type_id').val(product?.product_type_id);
                 $('#diameter').val(product?.diameter);

@@ -84,7 +84,7 @@
     <div id="upload_modal" class="modal fade px-3" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-info">
                     <h5 class="modal-title">Upload Photo</h5>
                 </div>
 

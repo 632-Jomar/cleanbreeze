@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="col-sm-6 text-right">
-                    <a href="{{ route('products.create') }}" class="btn btn-info">Create</a>
+                    <a href="{{ route('products.create') }}" class="btn btn-info"><i class="fa fa-cart-plus"></i> Create</a>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
                                     <td class="align-middle text-center product_name">{{ $product->productType->productName->category_name ?? '' }}</td>
                                     <td class="align-middle text-center product_type">{{ $product->productType->type ?? '' }}</td>
                                     <td class="align-middle text-center product_diameter">{{ $product->diameter ?? '' }}</td>
-                                    <td class="align-middle text-center product_price">{{ $product->price ?? '' }}</td>
+                                    <td class="align-middle text-center product_price">₱{{ number_format($product->price, 2) }}</td>
                                     <td class="align-middle text-center">
                                         <button type="button" class="btn btn-block btn-sm btn-success btn-edit" data-id="{{ $product->id }}">
                                             Edit
@@ -66,13 +66,18 @@
     <div id="edit_product_modal" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Product & Description Price</h4>
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title">Product & Description Price</h5>
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
 
                 <div class="modal-body">
                     <form id="edit_product_form">
+                        <div class="form-group">
+                            <label>Product Brand:</label>
+                            <input class="form-control" type="text" id="product_brand" readonly>
+                        </div>
+
                         <div class="form-group">
                             <label>Product Name:</label>
                             <input class="form-control" type="text" id="product_name" readonly>
@@ -84,14 +89,20 @@
                             <input type="hidden" name="product_type_id" id="product_type_id">
                         </div>
 
-                        <div class="form-group">
-                            <label>Diameter:</label>
-                            <input class="form-control" type="text" name="diameter" id="diameter" required>
-                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>Diameter:</label>
+                                    <input class="form-control" type="text" name="diameter" id="diameter" required>
+                                </div>
+                            </div>
 
-                        <div class="form-group">
-                            <label>Price:</label>
-                            <input class="form-control" type="number" step="any" name="price" id="price" required>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>Price:</label>
+                                    <input class="form-control text-right" type="number" step="any" name="price" id="price" required>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="m-t-50 text-center">
