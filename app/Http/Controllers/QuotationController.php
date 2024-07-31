@@ -227,7 +227,7 @@ class QuotationController extends Controller
 
         try {
             abort_if($quotation->is_approved, 403, "Approved quotation can't be deleted");
-            $quotation->update(['deleted_at' => now()]);
+            $quotation->delete();
 
             ActivityLog::create([
                 'entity_id'   => $quotation->id,
