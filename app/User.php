@@ -7,13 +7,14 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
     use HasCreatedBy;
     use Notifiable;
     use SoftDeletes;
+
+    const SUPER_ADMINS = ['632apps@gmail.com', 'jalarcon.632apps@gmail.com'];
 
     protected $guarded = [];
     public $incrementing = false;
@@ -72,11 +73,17 @@ class User extends Authenticatable
         return $this->hasMany(Quotation::class, 'created_by');
     }
 
+    public function approvedQuotations() {
+        return $this->hasMany(Quotation::class, 'created_by')->where('approved_at', '<>', null);
+    }
+
+    public function revisedQuotations() {
+        return $this->hasMany(Quotation::class, 'created_by')->where('revised_by', '<>', null);
+    }
+
     /** Accessor */
     public function getCanDeleteAttribute() {
-        $protectedEmail = ['632apps@gmail.com', 'jalarcon.632apps@gmail.com'];
-
-        return !in_array($this->email, $protectedEmail);
+        return !in_array($this->email, self::SUPER_ADMINS);
     }
 
     public function getImageSrcAttribute() {
