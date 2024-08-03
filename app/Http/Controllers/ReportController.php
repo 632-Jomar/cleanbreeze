@@ -14,7 +14,8 @@ class ReportController extends Controller
 
     public function index() {
         $quotations = Quotation::where('approved_at', '<>', null);
-        $years      = (clone $quotations)->selectRaw('YEAR(created_at) as year')
+
+        $years = (clone $quotations)->selectRaw('YEAR(created_at) as year')
             ->groupBy('year')
             ->orderBy('year', 'desc')
             ->get()
