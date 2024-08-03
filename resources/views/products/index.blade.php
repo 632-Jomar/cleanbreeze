@@ -102,7 +102,7 @@
                                     <label class="mb-1">Price:</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text">₱</span>
+                                            <span class="input-group-text text-muted">₱</span>
                                         </div>
 
                                         <input class="form-control text-right" type="number" step="any" name="price" id="price" required>
