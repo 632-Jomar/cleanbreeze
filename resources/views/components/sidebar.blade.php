@@ -8,9 +8,26 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
+                    <a class="nav-link {{ setActive('dashboard.index') }}" href="{{ route('dashboard.index') }}">
+                        <i class="nav-icon fa fa-table"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link {{ setActive(['quotations.index', 'quotations.show']) }}" href="{{ route('quotations.index') }}">
                         <i class="nav-icon fa fa-list"></i>
-                        <p>Quotations</p>
+                        <p>
+                            Quotations
+
+                            @php
+                                $newQuotationCount = newQuotationCount();
+                            @endphp
+
+                            @if ($newQuotationCount)
+                                <span class="badge badge-info right">{{ $newQuotationCount }}</span>
+                            @endif
+                        </p>
                     </a>
                 </li>
 
