@@ -9,7 +9,7 @@ $(function() {
                 $('#created_by').empty().append('<option value="">Select sales executive</option>');
 
                 $.each(response, function(i, e) {
-                    $('#created_by').append(`<option>${e.name}</option>`);
+                    $('#created_by').append(`<option value="${e.id}">${e.name}</option>`);
                 });
 
                 Swal.close();
