@@ -42,7 +42,7 @@
                                     <td class="align-middle text-center product_name">{{ $product->productType->productName->category_name ?? '' }}</td>
                                     <td class="align-middle text-center product_type">{{ $product->productType->type ?? '' }}</td>
                                     <td class="align-middle text-center product_diameter">{{ $product->diameter ?? '' }}</td>
-                                    <td class="align-middle text-center product_price">₱{{ $product->price ? number_format($product->price, 2) : '0.00' }}</td>
+                                    <td class="align-middle text-center product_price"><span style="margin-right: 2px">₱</span>{{ $product->price ? number_format($product->price, 2) : '0.00' }}</td>
                                     <td class="align-middle text-center">
                                         <button type="button" class="btn btn-block btn-sm btn-success btn-edit" data-id="{{ $product->id }}">
                                             Edit

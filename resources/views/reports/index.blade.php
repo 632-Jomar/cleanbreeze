@@ -150,7 +150,7 @@
                                                 </td>
                                                 <td class="lh-1 text-center">{{ $item->createdBy->name }}</td>
                                                 <td class="lh-1 text-center">{{ $item->name ?? '-' }}</td>
-                                                <td class="lh-1 text-right">{{ number_format($item->total_product_cost, 2) }}</td>
+                                                <td class="lh-1 text-right"><span style="margin-right: 2px">₱</span>{{ number_format($item->total_product_cost, 2) }}</td>
                                             </tr>
                                         @empty
                                             <tr>
@@ -162,7 +162,7 @@
                                     <tfoot>
                                         <tr class="bg-info">
                                             <td colspan="2">Count: {{ $quotations->count() }}</td>
-                                            <td colspan="3" class="text-right">{{ number_format($quotations->sum('total_product_cost'), 2) }}</td>
+                                            <td colspan="3" class="text-right"><span style="margin-right: 2px">₱</span>{{ number_format($quotations->sum('total_product_cost'), 2) }}</td>
                                         </tr>
                                     </tfoot>
                                 </table>
