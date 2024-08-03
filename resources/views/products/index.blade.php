@@ -2,7 +2,6 @@
 
 @push('page_scripts')
     <script src="{{ asset('pages/products/index.js?v=' . str_random(4)) }}"></script>
-    <script src="{{ asset('pages/products/index.js?v=' . str_random(4)) }}"></script>
 @endpush
 
 @section('content')
@@ -43,8 +42,7 @@
                                     <td class="align-middle text-center product_name">{{ $product->productType->productName->category_name ?? '' }}</td>
                                     <td class="align-middle text-center product_type">{{ $product->productType->type ?? '' }}</td>
                                     <td class="align-middle text-center product_diameter">{{ $product->diameter ?? '' }}</td>
-                                    <td class="align-middle text-center product_price">₱{{ $product->price ? number_format($product->price, 2) : '' }}</td>
-                                    <td class="align-middle text-center product_price">₱{{ number_format($product->price, 2) }}</td>
+                                    <td class="align-middle text-center product_price">₱{{ $product->price ? number_format($product->price, 2) : '0.00' }}</td>
                                     <td class="align-middle text-center">
                                         <button type="button" class="btn btn-block btn-sm btn-success btn-edit" data-id="{{ $product->id }}">
                                             Edit
@@ -70,18 +68,11 @@
             <div class="modal-content">
                 <div class="modal-header bg-info">
                     <h5 class="modal-title">Product Description</h5>
-                <div class="modal-header bg-info">
-                    <h5 class="modal-title">Product & Description Price</h5>
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
 
                 <div class="modal-body">
                     <form id="edit_product_form">
-                        <div class="form-group">
-                            <label>Product Brand:</label>
-                            <input class="form-control" type="text" id="product_brand" readonly>
-                        </div>
-
                         <div class="form-group">
                             <label class="mb-1">Product Brand:</label>
                             <input class="form-control" type="text" id="product_brand" readonly>
@@ -105,13 +96,6 @@
                                     <input class="form-control" type="text" name="diameter" id="diameter" required>
                                 </div>
                             </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label>Diameter:</label>
-                                    <input class="form-control" type="text" name="diameter" id="diameter" required>
-                                </div>
-                            </div>
 
                             <div class="col">
                                 <div class="form-group">
@@ -123,12 +107,6 @@
 
                                         <input class="form-control text-right" type="number" step="any" name="price" id="price" required>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label>Price:</label>
-                                    <input class="form-control text-right" type="number" step="any" name="price" id="price" required>
                                 </div>
                             </div>
                         </div>
