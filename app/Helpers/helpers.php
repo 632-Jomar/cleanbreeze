@@ -29,10 +29,16 @@ if (! function_exists('embedImage')) {
 
 if (! function_exists('newQuotationCount')) {
     function newQuotationCount() {
-        return Quotation::select('root_id')
-            ->groupBy('root_id')
-            ->havingRaw('SUM(CASE WHEN approved_at IS NULL THEN 0 ELSE 1 END) = 0')
-            ->get()
-            ->count();
+        if (auth()->check()) {
+            $quotation = auth()->user()->user_type_id == 1
+                ? Quotation::query()
+                : Quotation::where('created_by', auth()->id());
+
+            return $quotation->select('root_id')
+                ->groupBy('root_id')
+                ->havingRaw('SUM(CASE WHEN approved_at IS NULL THEN 0 ELSE 1 END) = 0')
+                ->get()
+                ->count();
+        }
     }
 }
