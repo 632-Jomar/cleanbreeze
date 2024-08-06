@@ -20,7 +20,7 @@ class DashboardController extends Controller
                 'quotations' => Quotation::where('approved_at', '<>', null)->count(),
                 'users'      => User::count(),
                 'products'   => Product::count(),
-                'revisions'  => Quotation::where('revised_by', '<>', null)->count()
+                'revisions'  => Quotation::withTrashed()->where('revised_by', '<>', null)->count()
             ];
 
             $quotationData = $this->getQuotationData();
@@ -31,7 +31,7 @@ class DashboardController extends Controller
 
         $counts = [
             'quotations' => Quotation::where('created_by', auth()->id())->where('approved_at', '<>', null)->count(),
-            'revisions'  => Quotation::where('revised_by', auth()->id())->count(),
+            'revisions'  => Quotation::withTrashed()->where('revised_by', auth()->id())->count(),
         ];
 
         $quotationData = $this->getQuotationData();
