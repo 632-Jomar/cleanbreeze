@@ -501,6 +501,12 @@ $(function() {
     productItem.initDropdowns();
     paymentDetails.initOnChange();
 
+    $('#cb_address').on('change', function() {
+        $(this).is(':checked')
+            ? $('#location').val( $('#address').val() )
+            : $('#location').val('');
+    });
+
     $('#summernote').summernote({
         height: 350,
         callbacks: {

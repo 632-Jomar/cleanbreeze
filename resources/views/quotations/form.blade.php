@@ -61,13 +61,20 @@
                 </div>
             </div>
 
-            <div class="row align-items-center mb-2">
+            <div class="row align-items-center">
                 <div class="col-3 col-lg-2">
                     <label class="font-weight-normal" class="mb-0" for="location">Location:</label>
                 </div>
 
                 <div class="col-9 col-lg-10">
                     <input type="text" class="form-control" id="location" name="location" value="{{ $quotation->location ?? '' }}" placeholder="-">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-3 col-lg-2"></div>
+                <div class="col-9 col-lg-10">
+                    <label for="cb_address" role="button"><small class="user-select-none"><input type="checkbox" id="cb_address"> Same as Address</small></label>
                 </div>
             </div>
         </div>
