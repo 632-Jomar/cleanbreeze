@@ -18,7 +18,7 @@ class Quotation extends Model
     public static function generateId()
     {
         $prefix = date('Ymd');
-        $count  = self::whereDate('created_at', now())->count();
+        $count  = self::withTrashed()->whereDate('created_at', now())->count();
         $qCount = (new Quotation)->qCount($count);
         $qId    = $prefix . '-' . $qCount;
 
