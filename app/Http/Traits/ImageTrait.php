@@ -15,15 +15,15 @@ trait ImageTrait
         return uniqid($prefix) . $this->getFileExtension($file);
     }
 
-    public function filenameByDate($file, string $format = 'Y-m-d-H-i-u') {
-        return now()->format($format) . $this->getFileExtension($file);
-    }
-
-    public function filenameByQuotation($file, $quotation) {
-        return $quotation->id . '-'. uniqid() . $this->getFileExtension($file);
+    public function filenameByValue($file, $value) {
+        return $value . $this->getFileExtension($file);
     }
 
     public function storeImage($folderName, $filename, $file) {
+        if (Storage::disk('public')->exists($folderName . '/' . $filename)) {
+            abort(403, "There's something error., please try again");
+        }
+
         Storage::disk('public')->putFileAs($folderName, $file, $filename);
     }
 

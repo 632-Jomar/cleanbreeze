@@ -276,20 +276,55 @@ class QuotationController extends Controller
     /** Upload Image */
     public function uploadQuotationImage() {
         try {
+            $prefix = request('image_prefix') ?? now()->format('Y-m-d-H-i');
+            $mSec   = now()->format('u');
+
             if (request('quotation_id')) {
-                $quotation = Quotation::find(request('quotation_id'));
+                $quotation = Quotation::findOrFail(request('quotation_id'));
+                $prefix    = $quotation->image_prefix;
 
                 abort_if($quotation->has_approved, 403, 'Unable to upload image');
-
-                $filename = $this->filenameByQuotation(request('file'), $quotation);
-                $this->storeImage('img-quotations', $filename, request('file'));
-
-                return response([
-                    'url' => "/storage/img-quotations/$filename"
-                ]);
             }
 
-            abort(404, 'Quotation ID not found.');
+            $filename = $this->filenameByValue(request('file'), $prefix . '-' . $mSec);
+            $this->storeImage('img-quotations', $filename, request('file'));
+
+            return response([
+                'prefix' => $prefix,
+                'url'    => "/storage/img-quotations/$filename"
+            ]);
+
+            // if (! $exist) {
+            //     $filename = $this->filename(request('file'), $prefix);
+
+            //     if (request('quotation_id')) {
+            //         $quotation = Quotation::find(request('quotation_id'));
+
+            //         abort_if($quotation->has_approved, 403, 'Unable to upload image');
+            //     }
+
+            //     $this->storeImage('img-quotations', $filename, request('file'));
+
+            //     return response([
+            //         'prefix' => $prefix,
+            //         'url'    => "/storage/img-quotations/$filename"
+            //     ]);
+            // }
+
+            // if (request('quotation_id')) {
+            //     $quotation = Quotation::find(request('quotation_id'));
+
+            //     abort_if($quotation->has_approved, 403, 'Unable to upload image');
+
+            //     $filename = $this->filenameByQuotation(request('file'), $quotation);
+            //     $this->storeImage('img-quotations', $filename, request('file'));
+
+            //     return response([
+            //         'url' => "/storage/img-quotations/$filename"
+            //     ]);
+            // }
+
+            // abort(404, 'Quotation ID not found.');
 
         } catch (\Throwable $th) {
             throw $th;
