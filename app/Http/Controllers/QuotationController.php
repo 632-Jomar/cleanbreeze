@@ -65,7 +65,8 @@ class QuotationController extends Controller
                 'is_vat'         => request('is_vat') ?? 0,
                 'notes'          => request('notes'),
 
-                'created_by' => auth()->id()
+                'image_prefix' => request('image_prefix'),
+                'created_by'   => auth()->id()
             ]);
 
             if (request()->has('product_id')) {
@@ -163,8 +164,9 @@ class QuotationController extends Controller
                 'is_vat'         => request('is_vat') ?? 0,
                 'notes'          => request('notes'),
 
-                'created_by' => $quotation->created_by,
-                'revised_by' => auth()->id()
+                'image_prefix' => request('image_prefix'),
+                'created_by'   => $quotation->created_by,
+                'revised_by'   => auth()->id()
             ]);
 
             if (request()->has('product_id')) {
@@ -293,38 +295,6 @@ class QuotationController extends Controller
                 'prefix' => $prefix,
                 'url'    => "/storage/img-quotations/$filename"
             ]);
-
-            // if (! $exist) {
-            //     $filename = $this->filename(request('file'), $prefix);
-
-            //     if (request('quotation_id')) {
-            //         $quotation = Quotation::find(request('quotation_id'));
-
-            //         abort_if($quotation->has_approved, 403, 'Unable to upload image');
-            //     }
-
-            //     $this->storeImage('img-quotations', $filename, request('file'));
-
-            //     return response([
-            //         'prefix' => $prefix,
-            //         'url'    => "/storage/img-quotations/$filename"
-            //     ]);
-            // }
-
-            // if (request('quotation_id')) {
-            //     $quotation = Quotation::find(request('quotation_id'));
-
-            //     abort_if($quotation->has_approved, 403, 'Unable to upload image');
-
-            //     $filename = $this->filenameByQuotation(request('file'), $quotation);
-            //     $this->storeImage('img-quotations', $filename, request('file'));
-
-            //     return response([
-            //         'url' => "/storage/img-quotations/$filename"
-            //     ]);
-            // }
-
-            // abort(404, 'Quotation ID not found.');
 
         } catch (\Throwable $th) {
             throw $th;
