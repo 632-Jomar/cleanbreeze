@@ -65,7 +65,8 @@ class QuotationController extends Controller
                 'is_vat'         => request('is_vat') ?? 0,
                 'notes'          => request('notes'),
 
-                'created_by' => auth()->id()
+                'image_prefix' => request('image_prefix'),
+                'created_by'   => auth()->id()
             ]);
 
             if (request()->has('product_id')) {
@@ -163,8 +164,9 @@ class QuotationController extends Controller
                 'is_vat'         => request('is_vat') ?? 0,
                 'notes'          => request('notes'),
 
-                'created_by' => $quotation->created_by,
-                'revised_by' => auth()->id()
+                'image_prefix' => request('image_prefix'),
+                'created_by'   => $quotation->created_by,
+                'revised_by'   => auth()->id()
             ]);
 
             if (request()->has('product_id')) {
@@ -276,20 +278,23 @@ class QuotationController extends Controller
     /** Upload Image */
     public function uploadQuotationImage() {
         try {
+            $prefix = request('image_prefix') ?? now()->format('Y-m-d-H-i');
+            $mSec   = now()->format('u');
+
             if (request('quotation_id')) {
-                $quotation = Quotation::find(request('quotation_id'));
+                $quotation = Quotation::findOrFail(request('quotation_id'));
+                $prefix    = $quotation->image_prefix;
 
                 abort_if($quotation->has_approved, 403, 'Unable to upload image');
-
-                $filename = $this->filenameByQuotation(request('file'), $quotation);
-                $this->storeImage('img-quotations', $filename, request('file'));
-
-                return response([
-                    'url' => "/storage/img-quotations/$filename"
-                ]);
             }
 
-            abort(404, 'Quotation ID not found.');
+            $filename = $this->filenameByValue(request('file'), $prefix . '-' . $mSec);
+            $this->storeImage('img-quotations', $filename, request('file'));
+
+            return response([
+                'prefix' => $prefix,
+                'url'    => "/storage/img-quotations/$filename"
+            ]);
 
         } catch (\Throwable $th) {
             throw $th;

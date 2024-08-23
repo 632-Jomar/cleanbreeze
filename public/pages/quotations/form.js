@@ -528,6 +528,7 @@ $(function() {
     let uploadImage = (file) => {
         let data = new FormData();
         data.append("file", file);
+        data.append("image_prefix", $('#image_prefix').val());
 
         $.ajax({
             url: "/quotations/upload-image?quotation_id=" + quotationId,
@@ -539,6 +540,7 @@ $(function() {
             beforeSend: swalLoading(),
             success: function(response) {
                 $('#summernote').summernote('insertImage', response.url);
+                $('#image_prefix').val(response.prefix);
                 Swal.close();
             },
             error: function(error) {

@@ -296,6 +296,7 @@
 
         <div class="card-body">
             <textarea id="summernote" style="display: none;" name="notes">{!! $quotation->notes ?? '' !!}</textarea>
+            <input type="hidden" value="{{ $quotation->image_prefix ?? '' }}" name="image_prefix" id="image_prefix">
         </div>
     </div>
 
