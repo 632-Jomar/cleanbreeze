@@ -46,11 +46,15 @@
                                             <div>
                                             </div>
                                             <div class="invoice-title">
-                                                <table>
+                                                <table style="width: 100%">
                                                     <tbody>
                                                         <tr>
-                                                            <th class="order" style="padding: 10px;background-color: black  !important;">Quote #:</th>
+                                                            <th width="10%" class="order" style="padding: 10px;background-color: black  !important;">Quote #:</th>
                                                             <td style="padding: 10px;">{{ $quotation->id }}</td>
+
+                                                            <td class="align-middle text-right">
+                                                                <img src="{{ asset('assets/logos/geoclean.png') }}" style="height: 50px;">
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -80,7 +84,7 @@
                                                                     <h4>QUOTATION</h4>
                                                                 </center>
                                                             </td>
-                                                            <td class="title-print">
+                                                            <td>
                                                                 <center>
                                                                     <table class="table table-bordered">
                                                                         <tbody>
@@ -126,7 +130,7 @@
                                             </div>
                                             <div>
                                                 <br>
-                                                <table class="table table-responsive">
+                                                <table class="table">
                                                     <tbody>
                                                         <tr class="title" style="background-color: black  !important;">
                                                             <td class="order" colspan="4" style="background-color: black  !important;">
@@ -171,129 +175,132 @@
                                                 <div class="col-md-14">
                                                     <div class="">
                                                         <div class="panel-heading">
-                                                            <div class="">
-                                                                <h3 class="panel-title">ITEMS ORDERED</h3>
-                                                            </div>
+                                                            <h3>ITEMS ORDERED</h3>
                                                         </div>
                                                         <div class="">
+                                                            <table class="table table-bordered">
+                                                                <tbody>
+                                                                    <tr class="head" style="background-color: black  !important;">
+                                                                        <th class="text-center" style="color: white;font-size: 14px !important;" colspan="7">ITEMS</th>
+                                                                    </tr>
+                                                                    <tr class="head" style="background-color: black  !important;">
+                                                                        <th class="text-center" style="color: white;font-size: 14px !important;">BRAND</th>
+                                                                        <th class="text-center" style="color: white;font-size: 14px !important;">PRODUCT</th>
+                                                                        <th class="text-center" style="color: white;font-size: 14px !important;" colspan="2">PRODUCT INFORMATION</th>
+                                                                        <th class="text-center" style="color: white;font-size: 14px !important;">PRODUCT PRICE</th>
+                                                                        <th class="text-center" style="color: white;font-size: 14px !important;">QTY</th>
+                                                                        <th class="text-center" style="color: white;font-size: 14px !important;">TOTAL PRICE</th>
+                                                                    </tr>
+                                                                    
+                                                                    @forelse ($quotation->quotationProducts as $quotationProduct)
+                                                                        <tr>
+                                                                            <td style="vertical-align: middle;">
+                                                                                <center style="font-size: 14px !important;">
+                                                                                    {{ $quotationProduct->product->productType->productName->productBrand->brand ?? '-' }}
+                                                                                </center>
+                                                                            </td>
+                                                                            <td style="vertical-align: middle;">
+                                                                                <center style="font-size: 14px !important;">
+                                                                                    {{ $quotationProduct->product->productType->productName->category_name ?? '-' }}
+                                                                                </center>
+                                                                            </td>
+                                                                            <td colspan="2">
+                                                                                <table class="table table-bordered">
+                                                                                    <tbody>
+                                                                                        <tr style="background-color: #8c8c8c;">
+                                                                                            <td>
+                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Type</label></center>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Diameter</label></center>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Color</label></center>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Warranty</label></center>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td style="font-size: 14px !important;">{{ $quotationProduct->product->productType->type ?? '-' }}</td>
+                                                                                            <td style="font-size: 14px !important;">{{ $quotationProduct->diameter ?? '-' }}</td>
+                                                                                            <td style="font-size: 14px !important;">
+                                                                                                {{ $quotationProduct->color ?? '-' }}
+                                                                                            </td>
+                                                                                            <td style="font-size: 14px !important;" rowspan="3">
+                                                                                                {{ $quotationProduct->warranty ?? '-' }}
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr style="background-color: #8c8c8c;">
+                                                                                            <td>
+                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Power</label></center>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Extension</label></center>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">LED</label></center>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td style="font-size: 14px !important;">
+                                                                                                {{ $quotationProduct->productVoltage->voltage ?? 'N/A' }}
+                                                                                            </td>
+                                                                                            <td style="font-size: 14px !important;">
+                                                                                                {{ $quotationProduct->productExtension->extension ?? 'N/A' }}
+                                                                                            </td>
+                                                                                            <td style="font-size: 14px !important;">
+                                                                                                {{ $quotationProduct->productLedLight->led ?? 'N/A' }}
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </td>
+                                                                            <td style="vertical-align: middle;font-size: 14px !important;">
+                                                                                <center>
+                                                                                    PHP &nbsp;{{ $quotationProduct->product->price ?? 0.00 }}
+                                                                                </center>
+                                                                            </td>
+                                                                            <td style="vertical-align: middle;font-size: 14px !important;">
+                                                                                <center>
+                                                                                    {{ $quotationProduct->quantity }}
+                                                                                </center>
+                                                                            </td>
+                                                                            <td style="vertical-align: middle;font-size: 14px !important;">
+                                                                                <center>
+                                                                                    PHP &nbsp;{{ number_format($quotationProduct->line_total, 2) }}
+                                                                                </center>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @empty
+                                                                        <tr>
+                                                                            <td>&nbsp;</td>
+                                                                            <td>&nbsp;</td>
+                                                                            <td>&nbsp;</td>
+                                                                            <td>&nbsp;</td>
+                                                                            <td>&nbsp;</td>
+                                                                            <td>&nbsp;</td>
+                                                                        </tr>
+                                                                    @endforelse
+
+                                                                    <tr class="head" style="background-color: black  !important;">
+                                                                        <th class="text-center" style="color: white;font-size: 14px !important;">NOTE:</th>
+                                                                        <th class="text-center" style="color: white;" colspan="6"></th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan="7" style="font-size: 14px !important;">
+                                                                            - Installation doesn't include any health testing required by client. Additional costs shouldered by Client related to testing and all additional PPEs.<br>
+                                                                            - Please see attached warranty.<br>
+                                                                            - Quotations are valid for 30 days from the date of the quotation.<br>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr></tr>
+                                                                </tbody>
+                                                            </table>
+
                                                             <div class="table-responsive">
                                                                 <table class="table table-bordered" id="po_table">
                                                                     <tbody>
-                                                                        <tr class="head" style="background-color: black  !important;">
-                                                                            <th class="text-center" style="color: white;font-size: 14px !important;" colspan="7">ITEMS</th>
-                                                                        </tr>
-                                                                        <tr class="head" style="background-color: black  !important;">
-                                                                            <th class="text-center" style="color: white;font-size: 14px !important;">BRAND</th>
-                                                                            <th class="text-center" style="color: white;font-size: 14px !important;">PRODUCT</th>
-                                                                            <th class="text-center" style="color: white;font-size: 14px !important;" colspan="2">PRODUCT INFORMATION</th>
-                                                                            <th class="text-center" style="color: white;font-size: 14px !important;">PRODUCT PRICE</th>
-                                                                            <th class="text-center" style="color: white;font-size: 14px !important;">QTY</th>
-                                                                            <th class="text-center" style="color: white;font-size: 14px !important;">TOTAL PRICE</th>
-                                                                        </tr>
-                                                                        
-                                                                        @forelse ($quotation->quotationProducts as $quotationProduct)
-                                                                            <tr>
-                                                                                <td style="vertical-align: middle;">
-                                                                                    <center style="font-size: 14px !important;">
-                                                                                        {{ $quotationProduct->product->productType->productName->productBrand->brand ?? '-' }}
-                                                                                    </center>
-                                                                                </td>
-                                                                                <td style="vertical-align: middle;">
-                                                                                    <center style="font-size: 14px !important;">
-                                                                                        {{ $quotationProduct->product->productType->productName->category_name ?? '-' }}
-                                                                                    </center>
-                                                                                </td>
-                                                                                <td colspan="2">
-                                                                                    <table class="table table-bordered">
-                                                                                        <tbody>
-                                                                                            <tr style="background-color: #8c8c8c;">
-                                                                                                <td>
-                                                                                                    <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Type</label></center>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Diameter</label></center>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Color</label></center>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Warranty</label></center>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td style="font-size: 14px !important;">{{ $quotationProduct->product->productType->type ?? '-' }}</td>
-                                                                                                <td style="font-size: 14px !important;">{{ $quotationProduct->diameter ?? '-' }}</td>
-                                                                                                <td style="font-size: 14px !important;">
-                                                                                                    {{ $quotationProduct->color ?? '-' }}
-                                                                                                </td>
-                                                                                                <td style="font-size: 14px !important;" rowspan="3">
-                                                                                                    {{ $quotationProduct->warranty ?? '-' }}
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr style="background-color: #8c8c8c;">
-                                                                                                <td>
-                                                                                                    <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Power</label></center>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">Extension</label></center>
-                                                                                                </td>
-                                                                                                <td>
-                                                                                                    <center style="font-size: 14px !important;color: white !important;"><label style="font-size: 14px !important;">LED</label></center>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <td style="font-size: 14px !important;">
-                                                                                                    {{ $quotationProduct->productVoltage->voltage ?? 'N/A' }}
-                                                                                                </td>
-                                                                                                <td style="font-size: 14px !important;">
-                                                                                                    {{ $quotationProduct->productExtension->extension ?? 'N/A' }}
-                                                                                                </td>
-                                                                                                <td style="font-size: 14px !important;">
-                                                                                                    {{ $quotationProduct->productLedLight->led ?? 'N/A' }}
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        </tbody>
-                                                                                    </table>
-                                                                                </td>
-                                                                                <td style="vertical-align: middle;font-size: 14px !important;">
-                                                                                    <center>
-                                                                                        PHP &nbsp;{{ $quotationProduct->product->price ?? 0.00 }}
-                                                                                    </center>
-                                                                                </td>
-                                                                                <td style="vertical-align: middle;font-size: 14px !important;">
-                                                                                    <center>
-                                                                                        {{ $quotationProduct->quantity }}
-                                                                                    </center>
-                                                                                </td>
-                                                                                <td style="vertical-align: middle;font-size: 14px !important;">
-                                                                                    <center>
-                                                                                        PHP &nbsp;{{ number_format($quotationProduct->line_total, 2) }}
-                                                                                    </center>
-                                                                                </td>
-                                                                            </tr>
-                                                                        @empty
-                                                                            <tr>
-                                                                                <td>&nbsp;</td>
-                                                                                <td>&nbsp;</td>
-                                                                                <td>&nbsp;</td>
-                                                                                <td>&nbsp;</td>
-                                                                                <td>&nbsp;</td>
-                                                                                <td>&nbsp;</td>
-                                                                            </tr>
-                                                                        @endforelse
-
-                                                                        <tr class="head" style="background-color: black  !important;">
-                                                                            <th class="text-center" style="color: white;font-size: 14px !important;">NOTE:</th>
-                                                                            <th class="text-center" style="color: white;" colspan="6"></th>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td colspan="7" style="font-size: 14px !important;">
-                                                                                - Installation doesn't include any health testing required by client. Additional costs shouldered by Client related to testing and all additional PPEs.<br>
-                                                                                - Please see attached warranty.<br>
-                                                                                - Quotations are valid for 30 days from the date of the quotation.<br>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr></tr>
                                                                         <tr class="head" style="background-color: black  !important;">
                                                                             <th class="text-center" style="color: white;font-size: 14px !important;">ADDITIONAL NOTE:</th>
                                                                             <th class="text-center" style="color: white;" colspan="6"></th>
@@ -305,166 +312,167 @@
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
-                                                                <table style="width: 100%;">
-                                                                    <tbody>
-                                                                        <tr style="background-color: black;">
-                                                                            <th class="text-center" style="padding:10px;color:white;font-size: 14px !important;" colspan="4">SUMMARY</th>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="width: 50%; vertical-align:top">
-                                                                                <table style="width: 100%">
-                                                                                    <tbody>
-                                                                                        <tr>
-                                                                                            <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
-                                                                                                Payment Method:
-                                                                                            </td>
-                                                                                            <td style="padding:10px;vertical-align: middle;font-size: 14px !important;">
-                                                                                                {{ $quotation->payment_method }}
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
-                                                                                                Product Cost:
-                                                                                            </td>
-                                                                                            <td style="padding:10px;font-size: 14px !important;">
-                                                                                                PHP &nbsp;{{ number_format($quotation->total_product_cost, 2) }}
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
-                                                                                                Delivery Fee:
-                                                                                            </td>
-                                                                                            <td style="padding:10px;font-size: 14px !important;">
-                                                                                                PHP &nbsp;{{ $quotation->delivery_fee }}
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </td>
-                                                                            <td style="width: 50%; vertical-align:top">
-                                                                                <table style="width: 100%">
-                                                                                    <tbody>
-                                                                                        <tr>
-                                                                                            <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
-                                                                                                Labor Cost
-                                                                                            </td>
-                                                                                            <td style="padding:10px;font-size: 14px !important;">
-                                                                                                PHP &nbsp;{{ $quotation->labor_cost }}
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
-                                                                                                Material Cost:
-                                                                                            </td>
-                                                                                            <td style="padding:10px;font-size: 14px !important;">
-                                                                                                PHP &nbsp;{{ $quotation->material_cost }}
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
-                                                                                                Mobilization:
-                                                                                            </td>
-                                                                                            <td style="padding:10px;font-size: 14px !important;">
-                                                                                                PHP &nbsp;{{ $quotation->mobilization }}
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
-                                                                                                Others (Installation fee)
-                                                                                            </td>
-                                                                                            <td style="padding:10px;font-size: 14px !important;">
-                                                                                                PHP &nbsp;{{ $quotation->other_install }}
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="background-color: black;" class="custom-tbl" colspan="3"><label style="padding:10px 10px 10px 0;color:white;font-size: 14px !important;">&nbsp;&nbsp;&nbsp;Other Fees:</label></td>
-                                                                        </tr>
-                                                                        
-
-                                                                        @foreach ($quotation->quotationMiscs as $quotationMisc)
-                                                                            <tr>
-                                                                                <td style="padding:10px;font-size: 14px !important;">
-                                                                                    {{ $quotationMisc->description }}
-                                                                                </td>
-
-                                                                                <td style="padding:10px;font-size: 14px !important;">
-                                                                                    PHP &nbsp;{{ $quotationMisc->price }}
-                                                                                </td>
-                                                                            </tr>
-                                                                        @endforeach
-                                                                        <tr>
-                                                                            <td style="background-color: black;" class="custom-tbl" colspan="3"><label style="padding:10px 10px 10px 0;color:white;font-size: 14px !important;">&nbsp;&nbsp;&nbsp;</label></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
-                                                                                Subtotal:
-                                                                            </td>
-                                                                            <td style="padding:10px;font-size: 14px !important;">
-                                                                                PHP &nbsp;{{ number_format($quotation->subtotal, 2) }}
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
-                                                                                Discount:
-                                                                            </td>
-                                                                            <td style="padding:10px;vertical-align: middle;font-size: 14px !important;">
-                                                                                PHP &nbsp;{{ number_format($quotation->discount, 2) }}
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
-                                                                                VAT(12%):
-                                                                            </td>
-                                                                            <td style="padding:10px;vertical-align: middle;font-size: 14px !important;">
-                                                                                PHP &nbsp;{{ number_format($quotation->vat, 2) }}
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
-                                                                                Total Amount(+ VAT):
-                                                                            </td>
-                                                                            <td style="padding:10px;vertical-align: middle;font-size: 14px !important;">
-                                                                                PHP &nbsp;{{ number_format($quotation->total, 2) }}
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="background-color: black;" class="custom-tbl" colspan="3"><label style="padding:10px 10px 10px 0;color:white;font-size: 14px !important;">&nbsp;&nbsp;&nbsp;</label></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
-                                                                                Grand Total:
-                                                                            </td>
-                                                                            <td style="padding:10px;vertical-align: middle;font-size: 14px !important;">
-                                                                                PHP {{ number_format($quotation->grand_total, 2) }}
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                                <table style="width: 100%;">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td class="custom-tbl" colspan="2" rowspan="3" style="padding:20px;font-size: 14px !important;">
-                                                                                <b>Quotation prepared by:</b>&nbsp;&nbsp; <u>{{ $quotation->createdBy->name }}</u>
-                                                                                <br>
-                                                                                <br>
-                                                                                This is a quotation on the goods, named, subject to the conditions noted below:<br>
-                                                                                (Describe any conditions pertaining to these prices and any additional terms of the agreement.<br>
-                                                                                You may want to include contingencies that will affect the quotation.)
-                                                                                <br>
-                                                                                <br>
-                                                                                <br>
-                                                                                <br>
-                                                                                <br>
-                                                                                To accept this quotation, sign here and return: ______________________________________
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
                                                             </div>
+
+                                                            <table style="width: 100%;">
+                                                                <tbody>
+                                                                    <tr style="background-color: black;">
+                                                                        <th class="text-center" style="padding:10px;color:white;font-size: 14px !important;" colspan="4">SUMMARY</th>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="width: 50%; vertical-align:top">
+                                                                            <table style="width: 100%">
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
+                                                                                            Payment Method:
+                                                                                        </td>
+                                                                                        <td style="padding:10px;vertical-align: middle;font-size: 14px !important;">
+                                                                                            {{ $quotation->payment_method }}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
+                                                                                            Product Cost:
+                                                                                        </td>
+                                                                                        <td style="padding:10px;font-size: 14px !important;">
+                                                                                            PHP &nbsp;{{ number_format($quotation->total_product_cost, 2) }}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
+                                                                                            Delivery Fee:
+                                                                                        </td>
+                                                                                        <td style="padding:10px;font-size: 14px !important;">
+                                                                                            PHP &nbsp;{{ $quotation->delivery_fee }}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                        <td style="width: 50%; vertical-align:top">
+                                                                            <table style="width: 100%">
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
+                                                                                            Labor Cost
+                                                                                        </td>
+                                                                                        <td style="padding:10px;font-size: 14px !important;">
+                                                                                            PHP &nbsp;{{ $quotation->labor_cost }}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
+                                                                                            Material Cost:
+                                                                                        </td>
+                                                                                        <td style="padding:10px;font-size: 14px !important;">
+                                                                                            PHP &nbsp;{{ $quotation->material_cost }}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
+                                                                                            Mobilization:
+                                                                                        </td>
+                                                                                        <td style="padding:10px;font-size: 14px !important;">
+                                                                                            PHP &nbsp;{{ $quotation->mobilization }}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
+                                                                                            Others (Installation fee)
+                                                                                        </td>
+                                                                                        <td style="padding:10px;font-size: 14px !important;">
+                                                                                            PHP &nbsp;{{ $quotation->other_install }}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="background-color: black;" class="custom-tbl" colspan="3"><label style="padding:10px 10px 10px 0;color:white;font-size: 14px !important;">&nbsp;&nbsp;&nbsp;Other Fees:</label></td>
+                                                                    </tr>
+                                                                    
+
+                                                                    @foreach ($quotation->quotationMiscs as $quotationMisc)
+                                                                        <tr>
+                                                                            <td style="padding:10px;font-size: 14px !important;">
+                                                                                {{ $quotationMisc->description }}
+                                                                            </td>
+
+                                                                            <td style="padding:10px;font-size: 14px !important;">
+                                                                                PHP &nbsp;{{ $quotationMisc->price }}
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                    <tr>
+                                                                        <td style="background-color: black;" class="custom-tbl" colspan="3"><label style="padding:10px 10px 10px 0;color:white;font-size: 14px !important;">&nbsp;&nbsp;&nbsp;</label></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
+                                                                            Subtotal:
+                                                                        </td>
+                                                                        <td style="padding:10px;font-size: 14px !important;">
+                                                                            PHP &nbsp;{{ number_format($quotation->subtotal, 2) }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
+                                                                            Discount:
+                                                                        </td>
+                                                                        <td style="padding:10px;vertical-align: middle;font-size: 14px !important;">
+                                                                            PHP &nbsp;{{ number_format($quotation->discount, 2) }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
+                                                                            VAT(12%):
+                                                                        </td>
+                                                                        <td style="padding:10px;vertical-align: middle;font-size: 14px !important;">
+                                                                            PHP &nbsp;{{ number_format($quotation->vat, 2) }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
+                                                                            Total Amount(+ VAT):
+                                                                        </td>
+                                                                        <td style="padding:10px;vertical-align: middle;font-size: 14px !important;">
+                                                                            PHP &nbsp;{{ number_format($quotation->total, 2) }}
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="background-color: black;" class="custom-tbl" colspan="3"><label style="padding:10px 10px 10px 0;color:white;font-size: 14px !important;">&nbsp;&nbsp;&nbsp;</label></td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="padding: 10px;font-size: 14px !important;" class="custom-tbl">
+                                                                            Grand Total:
+                                                                        </td>
+                                                                        <td style="padding:10px;vertical-align: middle;font-size: 14px !important;">
+                                                                            PHP {{ number_format($quotation->grand_total, 2) }}
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <table style="width: 100%;">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="custom-tbl" colspan="2" rowspan="3" style="padding:20px;font-size: 14px !important;">
+                                                                            <b>Quotation prepared by:</b>&nbsp;&nbsp; <u>{{ $quotation->createdBy->name }}</u>
+                                                                            <br>
+                                                                            <br>
+                                                                            This is a quotation on the goods, named, subject to the conditions noted below:<br>
+                                                                            (Describe any conditions pertaining to these prices and any additional terms of the agreement.<br>
+                                                                            You may want to include contingencies that will affect the quotation.)
+                                                                            <br>
+                                                                            <br>
+                                                                            <br>
+                                                                            <br>
+                                                                            <br>
+                                                                            To accept this quotation, sign here and return: ______________________________________
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
