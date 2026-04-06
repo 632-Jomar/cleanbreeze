@@ -32,4 +32,6 @@ Route::namespace('Api')->group(function() {
     Route::get('product-voltages/{product_voltage}', 'ProductApiController@productVoltage');
     Route::get('product-extensions/{product_extension}', 'ProductApiController@productExtension');
     Route::get('product-leds/{product_led_light}', 'ProductApiController@productLed');
+
+    Route::get('reports/{year}/sales-reps', 'QuotationApiController@getSalesReps');
 });

@@ -5,16 +5,18 @@
         <td class="align-middle">{{ $user->userType->type_name ?? '' }}</td>
         <td class="align-middle">{{ $user->email }}</td>
         <td class="align-middle">{!! $user->status !!}</td>
-        <td class="align-middle">
-            @if (! $user->is_verified)
-                <button class="btn-resend btn btn-primary">
-                    <i class="fa fa-sync"></i>
+        <td class="align-middle text-nowrap">
+            @if ($user->can_delete)
+                <button class="btn-delete btn btn-danger btn-sm" title="Delete User" data-id="{{ $user->id }}">
+                    <i class="fa fa-user-slash"></i>
                 </button>
             @endif
 
-            <button class="btn btn-danger" disabled>
-                <i class="fa fa-trash"></i>
-            </button>
+            @if (! $user->is_verified)
+                <button class="btn-resend btn btn-primary btn-sm" data-id="{{ $user->id }}" title="Resend Link">
+                    <i class="fa fa-sync"></i>
+                </button>
+            @endif
         </td>
     </tr>
 @empty

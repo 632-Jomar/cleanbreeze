@@ -30,14 +30,4 @@ class PasswordReset extends Model
             ->where('token', request('token'))
             ->first();
     }
-
-    public static function createLink() {
-        return self::updateOrCreate(
-            ['email' => request('email')],
-            [
-                'token'      => str_random(60),
-                'created_at' => now()
-            ]
-        );
-    }
 }

@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\ActivityLog;
 use App\Http\Traits\ImageTrait;
+use App\Product;
 use App\ProductBrand;
+use App\ProductExtension;
+use App\ProductLedLight;
+use App\ProductVoltage;
 use App\Quotation;
 use App\QuotationMisc;
 use App\QuotationProduct;
@@ -61,20 +65,33 @@ class QuotationController extends Controller
                 'is_vat'         => request('is_vat') ?? 0,
                 'notes'          => request('notes'),
 
-                'created_by' => auth()->id()
+                'image_prefix' => request('image_prefix'),
+                'created_by'   => auth()->id()
             ]);
 
             if (request()->has('product_id')) {
                 foreach (request('product_id') as $key => $productId) {
+                    $product          = Product::findOrFail($productId);
+                    $productVoltage   = ProductVoltage::find(request('voltage_id')[$key]);
+                    $productExtension = ProductExtension::find(request('extension_id')[$key]);
+                    $productLedLight  = ProductLedLight::find(request('led_light_id')[$key]);
+
                     QuotationProduct::create([
-                        'quotation_id'         => $quotation->id,
-                        'product_id'           => $productId,
-                        'product_voltage_id'   => request('voltage_id')[$key] ?? null,
-                        'product_extension_id' => request('extension_id')[$key] ?? null,
-                        'product_led_light_id' => request('led_light_id')[$key] ?? null,
-                        'warranty'             => request('warranty')[$key],
-                        'color'                => request('color')[$key],
-                        'quantity'             => request('quantity')[$key]
+                        'quotation_id' => $quotation->id,
+                        'product_id'   => $product->id,
+
+                        'product_voltage_id'   => $productVoltage->id ?? null,
+                        'product_extension_id' => $productExtension->id ?? null,
+                        'product_led_light_id' => $productLedLight->id ?? null,
+
+                        'voltage_price'   => $productVoltage->price ?? null,
+                        'extension_price' => $productExtension->price ?? null,
+                        'led_light_price' => $productLedLight->price ?? null,
+
+                        'warranty' => request('warranty')[$key],
+                        'color'    => request('color')[$key],
+                        'quantity' => request('quantity')[$key],
+                        'price'    => $product->price
                     ]);
                 }
             }
@@ -90,8 +107,9 @@ class QuotationController extends Controller
             }
 
             ActivityLog::create([
+                'entity_id'   => $quotation->id,
                 'entity_type' => 'Quotation',
-                'description' => "New quotation added (Quotation ID: {$quotation->id})"
+                'description' => 'New quotation added'
             ]);
 
             DB::commit();
@@ -107,6 +125,10 @@ class QuotationController extends Controller
     }
 
     public function show(Quotation $quotation) {
+        if (auth()->user()->user_type_id != 1) {
+            abort_unless($quotation->created_by == auth()->id(), 403, "You don't have permission to access this page");
+        }
+
         $brands  = ProductBrand::all();
         $cluster = Quotation::where('root_id', $quotation->root_id)->orderBy('id', 'DESC')->get();
 
@@ -142,20 +164,34 @@ class QuotationController extends Controller
                 'is_vat'         => request('is_vat') ?? 0,
                 'notes'          => request('notes'),
 
-                'created_by' => $quotation->created_by
+                'image_prefix' => request('image_prefix'),
+                'created_by'   => $quotation->created_by,
+                'revised_by'   => auth()->id()
             ]);
 
             if (request()->has('product_id')) {
                 foreach (request('product_id') as $key => $productId) {
+                    $product          = Product::findOrFail($productId);
+                    $productVoltage   = ProductVoltage::find(request('voltage_id')[$key]);
+                    $productExtension = ProductExtension::find(request('extension_id')[$key]);
+                    $productLedLight  = ProductLedLight::find(request('led_light_id')[$key]);
+
                     QuotationProduct::create([
-                        'quotation_id'         => $quotation->id,
-                        'product_id'           => $productId,
-                        'product_voltage_id'   => request('voltage_id')[$key] ?? null,
-                        'product_extension_id' => request('extension_id')[$key] ?? null,
-                        'product_led_light_id' => request('led_light_id')[$key] ?? null,
-                        'warranty'             => request('warranty')[$key],
-                        'color'                => request('color')[$key],
-                        'quantity'             => request('quantity')[$key]
+                        'quotation_id' => $quotation->id,
+                        'product_id'   => $product->id,
+
+                        'product_voltage_id'   => $productVoltage->id ?? null,
+                        'product_extension_id' => $productExtension->id ?? null,
+                        'product_led_light_id' => $productLedLight->id ?? null,
+
+                        'voltage_price'   => $productVoltage->price ?? null,
+                        'extension_price' => $productExtension->price ?? null,
+                        'led_light_price' => $productLedLight->price ?? null,
+
+                        'warranty' => request('warranty')[$key],
+                        'color'    => request('color')[$key],
+                        'quantity' => request('quantity')[$key],
+                        'price'    => $product->price
                     ]);
                 }
             }
@@ -171,8 +207,9 @@ class QuotationController extends Controller
             }
 
             ActivityLog::create([
+                'entity_id'   => $newQuotation->id,
                 'entity_type' => 'Quotation',
-                'description' => "Quotation details updated (Quotation ID: {$newQuotation->id})"
+                'description' => 'Quotation details updated'
             ]);
 
             DB::commit();
@@ -195,8 +232,9 @@ class QuotationController extends Controller
             $quotation->delete();
 
             ActivityLog::create([
+                'entity_id'   => $quotation->id,
                 'entity_type' => 'Quotation',
-                'description' => "Quotation deleted"
+                'description' => 'Quotation deleted'
             ]);
 
             DB::commit();
@@ -217,8 +255,9 @@ class QuotationController extends Controller
             $quotation->update(['approved_at' => now()]);
 
             ActivityLog::create([
+                'entity_id'   => $quotation->id,
                 'entity_type' => 'Quotation',
-                'description' => "Quotation approved (Quotation ID: {$quotation->id})"
+                'description' => 'Quotation approved'
             ]);
 
             return response([
@@ -239,17 +278,22 @@ class QuotationController extends Controller
     /** Upload Image */
     public function uploadQuotationImage() {
         try {
+            $prefix = request('image_prefix') ?? now()->format('Y-m-d-H-i');
+            $mSec   = now()->format('u');
+
             if (request('quotation_id')) {
-                $quotation = Quotation::find(request('quotation_id'));
+                $quotation = Quotation::findOrFail(request('quotation_id'));
+                $prefix    = $quotation->image_prefix;
 
                 abort_if($quotation->has_approved, 403, 'Unable to upload image');
             }
 
-            $filename = $this->filenameByDate(request('file'));
+            $filename = $this->filenameByValue(request('file'), $prefix . '-' . $mSec);
             $this->storeImage('img-quotations', $filename, request('file'));
 
             return response([
-                'url' => "/storage/img-quotations/$filename"
+                'prefix' => $prefix,
+                'url'    => "/storage/img-quotations/$filename"
             ]);
 
         } catch (\Throwable $th) {

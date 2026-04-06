@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @push('page_scripts')
-    <script src="{{ asset('pages/users/index.js') }}"></script>
+    <script src="{{ asset('pages/users/index.js?v=' . str_random(4)) }}"></script>
+    <script src="{{ asset('pages/users/save-image.js?v=' . str_random(4)) }}"></script>
 @endpush
 
 @section('content')
@@ -80,21 +81,26 @@
         </div>
     </div>
 
-    <div id="upload_modal" class="modal fade" role="dialog">
+    <div id="upload_modal" class="modal fade px-3" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-info">
                     <h5 class="modal-title">Upload Photo</h5>
                 </div>
 
                 <div class="modal-body text-center">
-                    <form id="upload_form">
-                        <input type="file" id="image_profile" name="image_profile" accept="image/*" class="d-block mb-3" required>
+                    <input type="file" id="upload" accept="image/*" class="mb-3 mw-100">
+                    <div id="croppie-container" style="display:none"></div>
 
-                        <button type="submit" class="btn btn-primary">
-                            Upload
+                    <div class="text-center">
+                        <button type="button" id="btn-save-img-profile" class="btn btn-success" style="display: none">
+                            <i class="fa fa-save"></i> Save
                         </button>
-                    </form>
+
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">
+                            <i class="fa fa-times"></i> Close
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

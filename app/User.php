@@ -2,14 +2,19 @@
 
 namespace App;
 
+use App\Http\Traits\HasCreatedBy;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
+    use HasCreatedBy;
     use Notifiable;
+    use SoftDeletes;
+
+    const SUPER_ADMINS = ['632apps@gmail.com', 'jalarcon.632apps@gmail.com'];
 
     protected $guarded = [];
     public $incrementing = false;
@@ -64,7 +69,23 @@ class User extends Authenticatable
         return $this->hasOne(VerificationToken::class, 'email', 'email');
     }
 
+    public function quotations() {
+        return $this->hasMany(Quotation::class, 'created_by');
+    }
+
+    public function approvedQuotations() {
+        return $this->hasMany(Quotation::class, 'created_by')->where('approved_at', '<>', null);
+    }
+
+    public function revisedQuotations() {
+        return $this->hasMany(Quotation::class, 'created_by')->where('revised_by', '<>', null);
+    }
+
     /** Accessor */
+    public function getCanDeleteAttribute() {
+        return !in_array($this->email, self::SUPER_ADMINS);
+    }
+
     public function getImageSrcAttribute() {
         $filename = $this->image_filename ?: 'user-icon.png';
 
@@ -88,12 +109,10 @@ class User extends Authenticatable
             $status = 'VERIFIED';
 
         } else {
-            if ($this->verificationToken && $this->verificationToken->is_expired) {
-                $class  = 'danger';
-                $status = 'EXPIRED';
-            }
+            $class  = 'danger';
+            $status = 'EXPIRED';
 
-            else {
+            if ($this->verificationToken && !$this->verificationToken->is_expired) {
                 $class  = 'warning';
                 $status = 'PENDING';
             }

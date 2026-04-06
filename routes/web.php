@@ -19,6 +19,7 @@ Route::get('users/verify/{token}', 'VerificationController@showVerificationPage'
 Route::post('users/verify/{token}', 'VerificationController@verify')->name('users.verify');
 
 Route::middleware(['auth'])->group(function () {
+    /** Prooducts */
     Route::post('products/category', 'ProductController@storeCategory');
 
     /** Profile */
@@ -36,10 +37,27 @@ Route::middleware(['auth'])->group(function () {
     /** Report */
     Route::get('reports', 'ReportController@index')->name('reports.index');
 
+    /** Dashboard - ADMIN */
+    Route::prefix('dashboard')->group(function() {
+        Route::get('/', 'DashboardController@index')->name('dashboard.index');
+        Route::post('summary-users', 'DashboardController@getSummaryUsers');
+    });
+
+    /** Accounts - Resend verification link */
+    Route::post('accounts/{user}/resend', 'AccountController@resend');
+
     Route::resources([
         'accounts'      => 'AccountController',
         'products'      => 'ProductController',
         'quotations'    => 'QuotationController',
         'activity-logs' => 'ActivityLogController'
     ]);
+});
+
+/** For clearing server-cache */
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('config:clear');
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode = Artisan::call('config:cache');
+    return 'DONE'; //Return anything
 });

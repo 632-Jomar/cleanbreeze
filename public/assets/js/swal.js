@@ -27,7 +27,7 @@ function swalError(text, title) {
 
 function swalQuestion(text, title) {
     return Swal.fire({
-        title: title || 'Proceed',
+        title: title || 'Confirmation',
         html: text || `Do you want to continue?`,
         showCancelButton: true
     });
@@ -38,8 +38,15 @@ function swalErrorAjax(response, title) {
     let message      = '';
 
     if (response.status == 419) {
-        Swal.fire('Session expired', 'Reloading');
-        return location.reload();
+        return Swal.fire({
+            title: 'Session Expired!',
+            html: 'Page will reload...',
+            timer: 2500,
+            timerProgressBar: true,
+            willClose: () => {
+                location.reload();
+            }
+        });
     }
 
     if (responseJSON?.errors) {

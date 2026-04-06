@@ -6,8 +6,8 @@
 
 @push('page_scripts')
     <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
-    <script src="{{ asset('pages/quotations/form.js') }}"></script>
-    <script src="{{ asset('pages/quotations/show.js') }}"></script>
+    <script src="{{ asset('pages/quotations/form.js?v=' . str_random(4)) }}"></script>
+    <script src="{{ asset('pages/quotations/show.js?v=' . str_random(4)) }}"></script>
 @endpush
 
 @section('content')
@@ -64,7 +64,7 @@
 
                                 <div class="dropdown-menu">
                                     @foreach ($cluster as $item)
-                                        <a class="dropdown-item {{ $item->id == $quotation->id ? 'active' : '' }}" href="{{ route('quotations.show', $item) }}">
+                                        <a class="dropdown-item {{ $item->id == $quotation->id ? 'active disabled' : '' }}" href="{{ route('quotations.show', $item) }}">
                                             {{ $item->id }} {{ $item->is_approved ? '(Approved)' : '' }}
                                         </a>
                                     @endforeach

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @push('page_scripts')
-    <script src="{{ asset('pages/accounts/index.js') }}"></script>
+    <script src="{{ asset('pages/accounts/index.js?v=' . str_random(4)) }}"></script>
 @endpush
 
 @section('content')
@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="col-sm-6 text-right">
-                    <a class="btn btn-info" data-target='#add_account' data-toggle="modal">Create</a>
+                    <a class="btn btn-info" data-target='#add_account' data-toggle="modal"><i class="fa fa-user-plus"></i> Create</a>
                 </div>
             </div>
         </div>
@@ -51,8 +51,8 @@
     <div id="add_account" class="modal fade">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Create User Account</h4>
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title">Create User Account</h5>
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
 

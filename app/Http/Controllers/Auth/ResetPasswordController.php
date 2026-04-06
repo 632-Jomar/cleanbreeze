@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\ActivityLog;
 use App\Http\Controllers\Controller;
 use App\PasswordReset;
 use App\User;
@@ -67,6 +68,13 @@ class ResetPasswordController extends Controller
                 $user->update([
                     'email_verified_at' => now(),
                     'password'          => Hash::make(request('password'))
+                ]);
+
+                ActivityLog::create([
+                    'entity_id'   => $user->id,
+                    'entity_type' => 'User',
+                    'description' => 'User password reset',
+                    'created_by'  => $user->id
                 ]);
 
                 $passwordReset->delete();

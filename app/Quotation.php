@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Quotation extends Model
 {
+    use SoftDeletes;
+
     protected $casts = ['id' => 'string'];
     protected $guarded = [];
     protected $dates = ['created_at'];
@@ -15,7 +18,7 @@ class Quotation extends Model
     public static function generateId()
     {
         $prefix = date('Ymd');
-        $count  = self::whereDate('created_at', now())->count();
+        $count  = self::withTrashed()->whereDate('created_at', now())->count();
         $qCount = (new Quotation)->qCount($count);
         $qId    = $prefix . '-' . $qCount;
 
@@ -50,7 +53,7 @@ class Quotation extends Model
 
     /** Relationship */
     public function createdBy() {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(User::class, 'created_by')->withTrashed();
     }
 
     public function quotationProducts() {
@@ -88,7 +91,7 @@ class Quotation extends Model
                 : 'PENDING';
         }
 
-        return "<p class='d-block text-wrap badge badge-$class m-0 p-2'>
+        return "<p class='d-block text-wrap badge badge-$class m-0 p-2' style='min-width: 100px'>
             $status
         </p>";
     }
@@ -135,13 +138,21 @@ class Quotation extends Model
 
     /** User-defined */
     public static function paginatedRecords() {
-        $results = self::where('id', 'like', '%' . request('search') . '%')
-            ->orWhere('name', 'like', '%' . request('search') . '%')
-            ->orWhereHas('createdBy', function($query) {
-                $query->where('name', 'like', '%'. request('search') . '%');
-            })
-            ->orderBy('id', 'DESC')
-            ->paginate(10);
+        $results = self::where('deleted_at', null);
+
+        if (auth()->user()->user_type_id == 2) {
+            $results = $results->where('created_by', auth()->id());
+        }
+
+        $results = $results->where(function($query) {
+            $query->where('id', 'like', '%' . request('search') . '%')
+                ->orWhere('name', 'like', '%' . request('search') . '%')
+                ->orWhereHas('createdBy', function($query) {
+                    $query->where('name', 'like', '%'. request('search') . '%');
+                });
+        })
+        ->orderBy('id', 'DESC')
+        ->paginate(10);
 
         $results->appends([
             'search' => request('search')

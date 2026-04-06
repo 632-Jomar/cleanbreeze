@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @push('page_scripts')
-    <script src="{{ asset('pages/quotations/index.js') }}"></script>
+    <script src="{{ asset('pages/quotations/index.js?v=' . str_random(4)) }}"></script>
 @endpush
 
 @section('content')
@@ -42,7 +42,7 @@
                     <tr class="bg-info text-light">
                         <td width="15%" class="align-middle text-center">Quotation <br> No.</td>
                         <td width="15%" class="align-middle text-center">Status</td>
-                        <td width="15%" class="align-middle text-center">Client Name</td>
+                        <td width="15%" class="align-middle text-center" style="min-width: 150px">Client Name</td>
                         <td width="15%" class="align-middle text-center">Sales Rep.</td>
                         <td width="15%" class="align-middle text-center">Date</td>
                         <td width="15%" class="align-middle text-center">PO</td>
@@ -54,8 +54,8 @@
 
                     @forelse ($quotations as $quotation)
                         <tr>
-                            <td class="align-middle">{{ $quotation->id }}</td>
-                            <td class="align-middle">{!! $quotation->status !!}</td>
+                            <td class="align-middle text-center">{{ $quotation->id }}</td>
+                            <td class="align-middle text-center">{!! $quotation->status !!}</td>
                             <td class="align-middle text-center">{{ $quotation->name }}</td>
                             <td class="align-middle text-center">{{ $quotation->createdBy->name ?? '' }}</td>
                             <td class="align-middle text-center" style="line-height: 100%"><p class="m-0" style="min-width: 120px">{{ $quotation->created_at->format('d M, Y') }} <br> <span class="text-xs">{{ $quotation->created_at->format('h:i a') }}</span></p></td>

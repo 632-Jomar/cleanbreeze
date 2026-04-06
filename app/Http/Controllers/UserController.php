@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('userType:1,2')->except(['showVerificationPage', 'verify']);
+        $this->middleware('userType:1,2');
     }
 
     public function index() {
@@ -40,8 +40,9 @@ class UserController extends Controller
                 $user->save();
 
                 ActivityLog::create([
+                    'entity_id'   => $user->id,
                     'entity_type' => 'User',
-                    'description' => "User details updated (User ID: {$user->id})"
+                    'description' => 'User details updated'
                 ]);
 
                 DB::commit();
@@ -61,7 +62,7 @@ class UserController extends Controller
 
     public function updatePassword() {
         $this->validate(request(), [
-            'password' => 'required|confirmed'
+            'password' => 'required|confirmed|min:8|max:16'
         ]);
 
         try {
@@ -72,8 +73,9 @@ class UserController extends Controller
 
             if (request('old_password') != request('password')) {
                 ActivityLog::create([
+                    'entity_id'   => $user->id,
                     'entity_type' => 'User',
-                    'description' => "User password updated (User ID: {$user->id})"
+                    'description' => 'User password updated'
                 ]);
 
                 $user->update([
@@ -94,14 +96,8 @@ class UserController extends Controller
     }
 
     public function uploadImage() {
-        $this->validate(request(), [
-            'image_profile' => 'required|max:2048|mimes:png,jpg,jpeg'
-        ]);
-
         try {
-            $filename = $this->filename(request('image_profile'), 'PRF-');
-
-            $this->updateImage($this->folderName, auth()->user()->image_filename, $filename, request('image_profile'));
+            $filename = $this->saveImageBase64ToPng($this->folderName, auth()->user()->image_filename, request('image_profile'), 'PRF-');
 
             auth()->user()->update([
                 'image_filename' => $filename

@@ -21,15 +21,31 @@
                                 <td width="15%" style="min-width: 150px">Entity</td>
                                 <td width="20%" style="min-width: 160px">Date</td>
                                 <td style="min-width: 300px">Description</td>
-                                <td>User</td>
+                                <td style="min-width: 150px">User</td>
                             </tr>
 
                             @forelse ($activityLogs as $activityLog)
                                 <tr>
-                                    <td class="align-middle py-1">{{ $activityLog->entity_type }}</td>
-                                    <td class="align-middle py-1" style="line-height: 110%">{{ $activityLog->created_at->format('Y, M d') }} <span class="text-xs">{{ $activityLog->created_at->format('(h:i a)') }}</span></td>
-                                    <td class="align-middle py-1">{{ $activityLog->description }}</td>
-                                    <td class="align-middle py-1">{{ $activityLog->user->name ?? '' }}</td>
+                                    <td class="align-middle py-1 lh-sm">{{ $activityLog->entity_type }}</td>
+
+                                    <td class="align-middle py-1 lh-sm">
+                                        {{ $activityLog->created_at->format('Y, M d') }}
+                                        <span class="text-info text-xs d-block">{{ $activityLog->created_at->format('(h:i a)') }}</span>
+                                    </td>
+                    
+                                    <td class="align-middle py-1 lh-sm">
+                                        <div class="d-flex align-items-center" style="min-height:40px">
+                                            <div>
+                                                {{ $activityLog->description }}
+
+                                                <span class="text-sm text-info d-block">
+                                                    {{ $activityLog->entity_details }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td class="align-middle py-1 lh-sm">{{ $activityLog->user->name ?? '' }}</td>
                                 </tr>
                             @empty
                                 <tr>

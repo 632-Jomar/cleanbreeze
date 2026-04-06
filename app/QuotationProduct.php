@@ -27,13 +27,13 @@ class QuotationProduct extends Model
 
     /** Accessor */
     public function getLineTotalAttribute() {
-        return $this->quantity * $this->product->price;
+        return $this->quantity * $this->price;
     }
 
     public function getTotalProductPriceAttribute() {
-        $voltagePrice = $this->productVoltage->price ?? 0;
-        $extensionPrice = $this->productExtension->price ?? 0;
-        $ledLightPrice = $this->productLedLight->price ?? 0;
+        $voltagePrice = $this->voltage_price ?? 0;
+        $extensionPrice = $this->extension_price ?? 0;
+        $ledLightPrice = $this->led_light_price ?? 0;
     
         return $this->line_total + $voltagePrice + $extensionPrice + $ledLightPrice;
     }
